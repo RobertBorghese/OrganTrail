@@ -5,7 +5,7 @@ import scenes.scene_other_test
 
 class Scene_Test(Scene_Base):
 	def setup(self):
-		self.set_background("images/Background.png")
+		self.set_background("images/Background1.png")
 		self.play_song("audio/testmusic2.mp3")
 
 		self.add_dialog("This is the first message!")
