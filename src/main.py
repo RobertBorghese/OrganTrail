@@ -1,71 +1,71 @@
-import pyglet
+import sys
 
-# import Scene_Test from scenes/scene_test.py
+from PyQt5.QtCore import Qt, QUrl
+from PyQt5.QtWidgets import QApplication, QWidget, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QVBoxLayout
+
 from scenes.scene_test import Scene_Test
 
-# Place the initial scene here!
-STARTING_SCENE = Scene_Test
+# Set this to the first scene of the game
+FIRST_SCENE = Scene_Test
 
-# ---------------------------------------------------------------
-# * Game
-#
-# This is the main class that runs the game.
-# ---------------------------------------------------------------
-class Game():
+# Set this to the screen width and height
+RESOLUTION_WIDTH = 1108
+RESOLUTION_HEIGHT = 624
+
+class MyWindow(QWidget):
 	def __init__(self):
-		self.create_window()
-		self.create_first_scene()
+		super().__init__(None, self.get_flags())
+		self.game_width = RESOLUTION_WIDTH
+		self.game_height = RESOLUTION_HEIGHT
+		self.setup_window()
+		self.setup_game_view()
+		self.setup_game_scene()
 
-	def create_first_scene(self):
-		self.scene = STARTING_SCENE(self)
+	def get_flags(self):
+		return (Qt.Dialog 
+				| Qt.CustomizeWindowHint 
+				| Qt.MSWindowsFixedSizeDialogHint
+				| Qt.WindowSystemMenuHint 
+				| Qt.WindowCloseButtonHint 
+				| Qt.WindowTitleHint
+				| Qt.WindowMinimizeButtonHint)
 
-	def create_window(self):
-		self.window = pyglet.window.Window()
-		self.window.on_draw = self.draw
-		self.window.on_key_press = self.on_key_press
-		self.window.on_key_release = self.on_key_release
-		self.window.on_mouse_motion = self.on_mouse_motion
-		self.window.on_mouse_press = self.on_mouse_press
-		self.window.on_mouse_release = self.on_mouse_release
+	def setup_window(self):
+		self.setWindowTitle('Organ Trail')
+		self.resize(self.game_width, self.game_height)
+		self.setMinimumSize(self.width() / 2, self.height() / 2)
 
-	def start(self):
-		pyglet.clock.schedule_interval(self.update, 1/120.0)
-		pyglet.app.run()
+	def setup_game_view(self):
+		layout = QVBoxLayout(self)
+		self.view = QGraphicsView(self)
+		self.view.setStyleSheet("QGraphicsView { border: none; }")
+		self.view.setMouseTracking(True)
+		layout.addWidget(self.view)
+		layout.setContentsMargins(0, 0, 0, 0)
 
-	def draw(self):
-		self.window.clear()
-		self.scene.draw()
+	def setup_game_scene(self):
+		self.goto_scene(FIRST_SCENE)
+		self.startTimer(10)
 
-	def update(self, dt):
-		self.scene.update()
+	def goto_scene(self, scene):
+		self.view.setScene(scene(self))
 
-	def goto_scene(self, scene, transition):
-		self.scene = scene
+	def close_game(self):
+		self.close()
 
-	def on_key_press(self, key, modifiers):
-		self.scene.on_key_press(key, modifiers)
+	def resizeEvent(self, event):
+		pass
 
-	def on_key_release(self, key, modifiers):
-		self.scene.on_key_release(key, modifiers)
+	def timerEvent(self, event):
+		if self.view is not None and self.view.scene() is not None:
+			self.view.scene().update()
 
-	def on_mouse_motion(self, x, y, dx, dy):
-		self.scene.on_mouse_move(x, y, dx, dy)
-
-	def on_mouse_release(self, x, y, button, modifiers):
-		self.scene.on_mouse_release(x, y, button, modifiers)
-
-	def on_mouse_press(self, x, y, button, modifiers):
-		self.scene.on_mouse_press(x, y, button, modifiers)
-
-# ---------------------------------------------------------------
-
-# Creates a "Game" object then runs it
 def main():
-	game = Game()
-	print("-- Game has started --")
-	game.start()
-	print("-- Game has ended --")
+	app = QApplication(sys.argv)
+	w = MyWindow()
+	w.show()
+	sys.exit(app.exec_())
 
-# If this is the main file, it runs the "main" function
-if __name__ == "__main__":
+if __name__ == '__main__':
 	main()
+	
