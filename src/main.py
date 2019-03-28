@@ -3,10 +3,10 @@ import sys
 from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QVBoxLayout
 
-from scenes.scene_test import Scene_Test
+from scenes.scene_titlescreen import Scene_TitleScreen
 
 # Set this to the first scene of the game
-FIRST_SCENE = Scene_Test
+FIRST_SCENE = Scene_TitleScreen
 
 # Set this to the screen width and height
 RESOLUTION_WIDTH = 1108

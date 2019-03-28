@@ -2,6 +2,7 @@ from PyQt5.QtWidgets import QGraphicsScene, QGraphicsTextItem, QGraphicsPixmapIt
 from PyQt5.QtGui import QPixmap, QFont, QColor
 
 from audio.audio_player import AudioPlayer
+from objects.button import Button
 
 class Scene_Base(QGraphicsScene):
 	def __init__(self, window):
@@ -23,11 +24,17 @@ class Scene_Base(QGraphicsScene):
 		self.fading_box = None
 		self.fade_dir = 0
 		self.next_scene = None
+		self.buttons = []
+		self.current_id = 1
+		self.texts = {}
+		self.images = {}
+		self.moving_images = []
 
 	def create_fade(self, opc=1):
 		self.fading_box = QGraphicsRectItem(0, 0, self.width(), self.height())
 		self.fading_box.setBrush(QColor(0, 0, 0))
 		self.fading_box.setOpacity(opc)
+		self.fading_box.setZValue(100)
 		self.addItem(self.fading_box)
 
 	# ==============================================
@@ -49,6 +56,7 @@ class Scene_Base(QGraphicsScene):
 		self.update_fade()
 		self.update_dialog()
 		self.update_dialog_text()
+		self.update_moving_images()
 
 	def update_fade(self):
 		if self.fading_box is not None:
@@ -83,6 +91,23 @@ class Scene_Base(QGraphicsScene):
 					self.current_dialog_text_offset = 0
 					self.current_dialog_text.setPlainText(self.target_text[:len(curr_text) + 1])
 
+	def update_moving_images(self):
+		if len(self.moving_images) > 0:
+			index = 0
+			new_data = []
+			for image in self.moving_images:
+				pic_id = image[0]
+				item = self.images[pic_id]
+				item.setX(item.x() + image[1])
+				item.setY(item.y() + image[2])
+				image[3] -= 1
+				if image[3] > 0:
+					new_data.append(image)
+				index += 1
+
+			self.moving_images = new_data
+
+
 	# ==============================================
 	# * Mouse Events
 	#
@@ -91,7 +116,6 @@ class Scene_Base(QGraphicsScene):
 
 	def mouseMoveEvent(self, mouseEvent):
 		pass
-		#print(mouseEvent.pos())
 
 	def mousePressEvent(self, mouseEvent):
 		self.when_mouse_pressed(mouseEvent)
@@ -107,13 +131,18 @@ class Scene_Base(QGraphicsScene):
 				else:
 					self.removeItem(self.current_dialog_text)
 					self.call_next_action()
+		else:
+			super(Scene_Base, self).mousePressEvent(mouseEvent)
 
 	# ==============================================
 	# * Action Management
 	# ==============================================
 
 	def finish_action(self):
-		self.actions.pop(0)
+		if len(self.actions) > 0:
+			self.actions.pop(0)
+		else:
+			self.wait_for_button_press()
 
 	def check_if_first(self):
 		if len(self.actions) == 1:
@@ -126,6 +155,8 @@ class Scene_Base(QGraphicsScene):
 
 			if action_type is 0:
 				self.actually_show_dialog(action)
+			if action_type is 1:
+				self.actually_show_button(action)
 			elif action_type is 2:
 				self.actually_set_background(action)
 			elif action_type is 3:
@@ -134,6 +165,20 @@ class Scene_Base(QGraphicsScene):
 				self.actually_close_game()
 			elif action_type is 5:
 				self.actually_play_song(action)
+			elif action_type is 6:
+				self.actually_wait_for_button_press()
+			elif action_type is 7:
+				self.actually_remove_all_buttons()
+			elif action_type is 8:
+				self.actually_show_text(action)
+			elif action_type is 9:
+				self.actually_hide_text(action)
+			elif action_type is 10:
+				self.actually_show_image(action)
+			elif action_type is 11:
+				self.actually_hide_image(action)
+			elif action_type is 12:
+				self.actually_move_image(action)
 
 	def call_next_action(self):
 		self.finish_action()
@@ -171,6 +216,14 @@ class Scene_Base(QGraphicsScene):
 		self.dialog_box.setOpacity(0)
 		self.addItem(self.dialog_box)
 
+	def actually_show_button(self, data):
+		button = Button(self, data[3], data[4], data[5], data[6], data[7], data[8], data[9])
+		button.setX(data[1])
+		button.setY(data[2])
+		self.buttons.append(button)
+		self.addItem(button)
+		self.call_next_action()
+
 	def actually_set_background(self, data):
 		if self.background is not None:
 			self.removeItem(self.background)
@@ -193,6 +246,58 @@ class Scene_Base(QGraphicsScene):
 		AudioPlayer.play_song(data[1])
 		self.call_next_action()
 
+	def actually_wait_for_button_press(self):
+		self.current_action = -1
+
+	def actually_remove_all_buttons(self):
+		for b in self.buttons:
+			self.removeItem(b)
+		self.buttons = []
+		self.call_next_action()
+
+	def actually_show_text(self, data):
+		text_item = QGraphicsTextItem()
+		text_item.setZValue(5)
+		if len(data) >= 8 and data[7] != None:
+			text_item.setDefaultTextColor(QColor(data[7]))
+		else:
+			text_item.setDefaultTextColor(QColor("#FFFFFF"))
+
+		text_item.setX(data[2])
+		text_item.setY(data[3])
+		text_item.setTextWidth(data[4])
+		text_item.setPlainText(data[5])
+
+		temp_font = text_item.font()
+		temp_font.setPointSize(data[6])
+		text_item.setFont(temp_font)
+
+		self.addItem(text_item)
+		self.texts[data[1]] = text_item
+		self.call_next_action()
+
+	def actually_hide_text(self, data):
+		self.removeItem(self.texts[data[1]])
+		self.texts[data[1]] = None
+		self.call_next_action()
+
+	def actually_show_image(self, data):
+		image = QGraphicsPixmapItem(QPixmap(data[2]))
+		image.setX(data[3])
+		image.setY(data[4])
+		self.addItem(image)
+		self.images[data[1]] = image
+		self.call_next_action()
+
+	def actually_hide_image(self, data):
+		self.removeItem(self.texts[data[1]])
+		self.texts[data[1]] = None
+		self.call_next_action()
+
+	def actually_move_image(self, data):
+		self.removeItem(self.texts[data[1]])
+		self.images[data[1]] = None
+
 	# ==============================================
 	# * Setup Calls
 	# ==============================================
@@ -201,20 +306,158 @@ class Scene_Base(QGraphicsScene):
 		self.actions.append(data)
 		self.check_if_first()
 
+	# ==============================================
+	# * Extended Calls
+	# ==============================================
+
+	# ==============================================
+	# Adds a dialog to the game.
+	#
+	# Ex:
+	#     self.add_dialog("Hello World!")
+	# ==============================================
 	def add_dialog(self, msg, fontSize=20):
 		self.add_call([0, msg, fontSize])
 
-	def add_button(self, name, action):
-		self.add_call([1, name, action])
+	# ==============================================
+	# Adds a button to the game.
+	# After adding all buttons, be sure to call "self.wait_for_button_press".
+	# Check scenes/scene_titlescreen.py for example of "font" and "buttonColors"
+	#
+	# Ex:
+	#     self.add_button(30, 30, 200, 200, "My Button!", self.another_function)
+	# ==============================================
+	def add_button(self, x, y, w, h, name, action, font=None, buttonColors=None, textColors=None):
+		self.add_call([1, x, y, w, h, name, font, buttonColors, textColors, action])
 
+	# ==============================================
+	# Sets the current background.
+	#
+	# Ex:
+	#     self.set_background("images/Background1.png")
+	# ==============================================
 	def set_background(self, path):
 		self.add_call([2, path])
 
+	# ==============================================
+	# Changes the game to the provided scene.
+	#
+	# Ex:
+	#     self.goto_scene(scenes.my_other_scene.My_Other_Scene)
+	# ==============================================
 	def goto_scene(self, scene):
 		self.add_call([3, scene])
 
+	# ==============================================
+	# Closes the game.
+	#
+	# Ex:
+	#     self.close_game()
+	# ==============================================
 	def close_game(self):
 		self.add_call([4])
 
+	# ==============================================
+	# Plays a song.
+	#
+	# Ex:
+	#     self.play_song("audio/testmusic2.mp3")
+	# ==============================================
 	def play_song(self, path):
 		self.add_call([5, path])
+
+	# ==============================================
+	# Once all buttons are created, this will wait for the player to press one.
+	#
+	# Ex:
+	#     self.wait_for_button_press()
+	# ==============================================
+	def wait_for_button_press(self):
+		self.add_call([6])
+
+	# ==============================================
+	# Removes all buttons from the screen.
+	#
+	# Ex:
+	#     self.remove_all_buttons()
+	# ==============================================
+	def remove_all_buttons(self):
+		self.add_call([7])
+
+	# ==============================================
+	# Based on the value provided, there is a chance it will return True.
+	#
+	# Ex:
+	#     if self.generate_random_chance(30):
+	#		  # there is a 30% chance of this happening
+	# 	  else:
+	#		  # there is a 70% chance of this happening
+	# ==============================================
+	def generate_random_chance(self, val):
+		return random.randint(0, 100) >= val
+
+	# ==============================================
+	# Shows text on the screen (not in dialog).
+	# This function returns an ID that can be used in self.hide_text.
+	#
+	# Ex:
+	#     text_id = self.show_text(10, 10, 200, "Hello Screen!", 40, "#FF44CC")
+	# ==============================================
+	def show_text(self, x, y, w, text, size=30, color=None):
+		new_id = self.current_id
+		self.current_id += 1
+		self.add_call([8, new_id, x, y, w, text, size, color])
+		return new_id
+
+	# ==============================================
+	# Hides the text connected to the ID.
+	#
+	# Ex:
+	#     self.hide_text(text_id)
+	# ==============================================
+	def hide_text(self, text_id):
+		self.add_call([9, text_id])
+
+	# ==============================================
+	# Shows a picture on the screen.
+	# This function returns an ID that can be used in other functions.
+	#
+	# Ex:
+	#     pic_id = self.show_picture("images/TestImage1.png", 30, 30)
+	# ==============================================
+	def show_picture(self, path, x, y):
+		new_id = self.current_id
+		self.current_id += 1
+		self.add_call([10, new_id, path, x, y])
+		return new_id
+
+	# ==============================================
+	# Removes the picture connected to the provided ID.
+	#
+	# Ex:
+	#     self.hide_picture(pic_id)
+	# ==============================================
+	def hide_picture(self, image_id):
+		self.add_call([11, image_id])
+
+	# ==============================================
+	# Moves the picture to new coordinates over a duration of time.
+	#
+	# Ex:
+	#     self.move_picture(pic_id, 90, 30, 120)
+	# ==============================================
+	def move_picture(self, image_id, x, y, duration, wait_until_finished=True):
+		self.add_call([12, image_id, x, y, duration])
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -3,6 +3,8 @@ import random
 from scenes.scene_base import Scene_Base
 import scenes.scene_other_test
 
+FONT = ["Arial", 18, -1, False]
+
 class Scene_Test(Scene_Base):
 	def setup(self):
 		self.set_background("images/Background1.png")
