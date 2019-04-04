@@ -4,6 +4,8 @@ from PyQt5.QtGui import QPixmap, QFont, QColor
 from audio.audio_player import AudioPlayer
 from objects.button import Button
 
+import random
+
 class Scene_Base(QGraphicsScene):
 	def __init__(self, window):
 		super().__init__()
@@ -11,6 +13,7 @@ class Scene_Base(QGraphicsScene):
 		self.window = window
 		self.init_fields()
 		self.create_fade()
+		self.dialog_box = None
 		self.setup()
 
 	def init_fields(self):
@@ -29,6 +32,7 @@ class Scene_Base(QGraphicsScene):
 		self.texts = {}
 		self.images = {}
 		self.moving_images = []
+		self.updatable_images = []
 
 	def create_fade(self, opc=1):
 		self.fading_box = QGraphicsRectItem(0, 0, self.width(), self.height())
@@ -57,6 +61,7 @@ class Scene_Base(QGraphicsScene):
 		self.update_dialog()
 		self.update_dialog_text()
 		self.update_moving_images()
+		self.update_animated_images()
 
 	def update_fade(self):
 		if self.fading_box is not None:
@@ -79,9 +84,11 @@ class Scene_Base(QGraphicsScene):
 				self.dialog_box.setOpacity(self.dialog_box.opacity() + 0.04)
 				if self.dialog_box.opacity() >= 0.5:
 					self.dialog_box.setOpacity(0.5)
-					self.actually_show_dialog(self.actions[0])
+					if self.actions[0][0] == 0:
+						self.actually_show_dialog(self.actions[0])
 
 	def update_dialog_text(self):
+		#print(self.target_text)
 		if self.current_dialog_text is not None:
 			curr_text = self.current_dialog_text.toPlainText()
 			if curr_text != self.target_text:
@@ -103,9 +110,23 @@ class Scene_Base(QGraphicsScene):
 				image[3] -= 1
 				if image[3] > 0:
 					new_data.append(image)
+				elif image[4] is not None:
+					image[4]()
 				index += 1
 
 			self.moving_images = new_data
+
+	def update_animated_images(self):
+		if len(self.updatable_images) > 0:
+			index = 0
+			for image in self.updatable_images:
+				image[2] += 1
+				if image[2] > image[4]:
+					image[2] = 0
+					image[3] += 1
+					if image[3] >= len(image[1]):
+						image[3] = 0
+					image[0].setPixmap(QPixmap(image[1][image[3]]))
 
 
 	# ==============================================
@@ -153,9 +174,11 @@ class Scene_Base(QGraphicsScene):
 			action = self.actions[0]
 			self.current_action = action_type = action[0]
 
-			if action_type is 0:
+			if action_type is -1:
+				self.actually_hide_dialog_box()
+			elif action_type is 0:
 				self.actually_show_dialog(action)
-			if action_type is 1:
+			elif action_type is 1:
 				self.actually_show_button(action)
 			elif action_type is 2:
 				self.actually_set_background(action)
@@ -215,6 +238,12 @@ class Scene_Base(QGraphicsScene):
 		self.dialog_box.setY(self.height() - self.dialog_box.boundingRect().height() - 10)
 		self.dialog_box.setOpacity(0)
 		self.addItem(self.dialog_box)
+
+	def actually_hide_dialog_box(self):
+		print("hide dialog box")
+		if self.dialog_box is not None:
+			self.removeItem(self.dialog_box)
+			self.dialog_box = None
 
 	def actually_show_button(self, data):
 		button = Button(self, data[3], data[4], data[5], data[6], data[7], data[8], data[9])
@@ -282,7 +311,12 @@ class Scene_Base(QGraphicsScene):
 		self.call_next_action()
 
 	def actually_show_image(self, data):
-		image = QGraphicsPixmapItem(QPixmap(data[2]))
+		image = None
+		if isinstance(data[2], list):
+			image = QGraphicsPixmapItem(QPixmap(data[2][0]))
+			self.updatable_images.append([image, data[2], 0, 0, data[5]])
+		else:
+			image = QGraphicsPixmapItem(QPixmap(data[2]))
 		image.setX(data[3])
 		image.setY(data[4])
 		self.addItem(image)
@@ -295,8 +329,16 @@ class Scene_Base(QGraphicsScene):
 		self.call_next_action()
 
 	def actually_move_image(self, data):
-		self.removeItem(self.texts[data[1]])
-		self.images[data[1]] = None
+		image_id = data[1]
+		image = self.images[image_id]
+		duration = data[4]
+		x_speed = (data[2] - image.x()) / duration
+		y_speed = (data[3] - image.y()) / duration
+		callback = self.call_next_action if data[5] else None
+		image_data = [image_id, x_speed, y_speed, duration, callback]
+		self.moving_images.append(image_data)
+		if not data[5]:
+			self.call_next_action()
 
 	# ==============================================
 	# * Setup Calls
@@ -318,6 +360,15 @@ class Scene_Base(QGraphicsScene):
 	# ==============================================
 	def add_dialog(self, msg, fontSize=20):
 		self.add_call([0, msg, fontSize])
+
+	# ==============================================
+	# Hides the dialog box
+	#
+	# Ex:
+	#     self.hide_dialog_box()
+	# ==============================================
+	def hide_dialog_box(self):
+		self.add_call([-1])
 
 	# ==============================================
 	# Adds a button to the game.
@@ -424,11 +475,19 @@ class Scene_Base(QGraphicsScene):
 	#
 	# Ex:
 	#     pic_id = self.show_picture("images/TestImage1.png", 30, 30)
+	#
+	# ----------------------------------------------
+	#
+	# Using an array of strings will create an animation.
+	# In that case, the last argument is the frame-change frequency of the animation.
+	#
+	# Ex:
+	#     pic_id = self.show_picture(["images/p1_frame_0.png", "images/p1_frame_1.png"], 100, 100, 30)
 	# ==============================================
-	def show_picture(self, path, x, y):
+	def show_picture(self, path, x, y, animation_speed=20):
 		new_id = self.current_id
 		self.current_id += 1
-		self.add_call([10, new_id, path, x, y])
+		self.add_call([10, new_id, path, x, y, animation_speed])
 		return new_id
 
 	# ==============================================
@@ -447,17 +506,29 @@ class Scene_Base(QGraphicsScene):
 	#     self.move_picture(pic_id, 90, 30, 120)
 	# ==============================================
 	def move_picture(self, image_id, x, y, duration, wait_until_finished=True):
-		self.add_call([12, image_id, x, y, duration])
+		self.add_call([12, image_id, x, y, duration, wait_until_finished])
+
+	# ==============================================
+	# Gets and sets global values
+	#
+	# Ex:
+	#     self.set_value("Health", 100)
+	#
+	#     self.add_value("Health", -1)
+	#
+	#     if self.get_value("Health") <= 30:
+	#         self.add_dialog("Player is less than 30 health!")
+	# ==============================================
+	def set_value(self, name, value):
+		Scene_Base.GLOBAL_VARS[name] = value
+
+	def add_value(self, name, value):
+		Scene_Base.GLOBAL_VARS[name] += value
+
+	def get_value(self, name):
+		return Scene_Base.GLOBAL_VARS[name]
 
 
 
-
-
-
-
-
-
-
-
-
+Scene_Base.GLOBAL_VARS = {}
 

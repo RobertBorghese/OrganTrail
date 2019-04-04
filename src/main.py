@@ -12,6 +12,8 @@ FIRST_SCENE = Scene_TitleScreen
 RESOLUTION_WIDTH = 1108
 RESOLUTION_HEIGHT = 624
 
+BUTTON_PRESS_SOUND_EFFECT = "audio/se_button_click.wav"
+
 class MyWindow(QWidget):
 	def __init__(self):
 		super().__init__(None, self.get_flags())

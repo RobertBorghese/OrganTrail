@@ -2,6 +2,11 @@ from PyQt5.QtCore import QRectF
 from PyQt5.QtWidgets import QGraphicsItem, QGraphicsDropShadowEffect
 from PyQt5.QtGui import QPixmap, QFont, QColor, QLinearGradient, QPainter, QPen, QPainterPath
 
+from audio.audio_player import AudioPlayer
+
+# The sound effect that is played when a button is pressed
+BUTTON_PRESS_SOUND_EFFECT = "audio/se_button_click.wav"
+
 class Button(QGraphicsItem):
 	def __init__(self, parentScene, width, height, text, font, buttonColors, textColors, callback):
 		super().__init__()
@@ -29,6 +34,8 @@ class Button(QGraphicsItem):
 
 		self.add_shadow()
 
+		AudioPlayer.preload_sound_effect(BUTTON_PRESS_SOUND_EFFECT)
+
 	def add_shadow(self):
 		self.shadow = QGraphicsDropShadowEffect()
 		self.shadow.setOffset(3, 3)
@@ -42,6 +49,8 @@ class Button(QGraphicsItem):
 		self.isPressed = True
 		self.shadow.setColor(QColor(0, 0, 0, 0))
 		self.update()
+		if len(BUTTON_PRESS_SOUND_EFFECT) > 0:
+			AudioPlayer.play_sound_effect(BUTTON_PRESS_SOUND_EFFECT)
 
 	def mouseReleaseEvent(self, event):
 		self.isPressed = False

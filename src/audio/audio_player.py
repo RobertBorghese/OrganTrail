@@ -1,5 +1,5 @@
 from PyQt5.QtCore import QUrl
-from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QMediaPlaylist
+from PyQt5.QtMultimedia import QMediaPlayer, QMediaContent, QMediaPlaylist, QSoundEffect
 
 class AudioPlayer:
 	@classmethod
@@ -17,3 +17,18 @@ class AudioPlayer:
 	def stop_song(cls):
 		if hasattr(cls, "music_player"):
 			cls.music_player.stop()
+
+	@classmethod
+	def preload_sound_effect(cls, path):
+		if not hasattr(cls, "sound_effects"):
+			cls.sound_effects = {}
+		if path not in cls.sound_effects:
+			se = QSoundEffect()
+			se.setSource(QUrl.fromLocalFile(path))
+			cls.sound_effects[path] = (se)
+
+	@classmethod
+	def play_sound_effect(cls, path):
+		if hasattr(cls, "sound_effects"):
+			if path in cls.sound_effects:
+				cls.sound_effects[path].play()

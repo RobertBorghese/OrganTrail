@@ -13,7 +13,10 @@ class Scene_TitleScreen(Scene_Base):
 		# Perhaps place title text on background image instead?
 		self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 3, GAME_WIDTH, "Organ Trail: The Game!", 50)
 
-		self.show_picture("images/TestImage1.png", 30, 30)
+		# Show animated picture offscreen...
+		pic_id = self.show_picture(["images/p1_frame_0.png", "images/p1_frame_1.png"], -500, 30)
+		# ... and move it to center of screen
+		self.move_picture(pic_id, (GAME_WIDTH / 2) - 250, 30, 200, False)
 
 		# The format for the buttons' font
 		# ["Font Name", #Font Size#, #Font Weight#, ?Is Italic?]
@@ -53,6 +56,8 @@ class Scene_TitleScreen(Scene_Base):
 						buttonColors = COLORS,
 						action = self.quit)
 
+		self.set_value("Health", 10)
+
 		self.wait_for_button_press()
 
 	def new_game(self):
@@ -60,6 +65,7 @@ class Scene_TitleScreen(Scene_Base):
 
 	def options(self):
 		self.add_dialog("TODO: Actually make options scene.")
+		self.hide_dialog_box()
 
 	def quit(self):
 		self.close_game()
