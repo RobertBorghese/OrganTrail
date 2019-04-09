@@ -11,12 +11,19 @@ class Scene_TitleScreen(Scene_Base):
 
 		# Shows a piece of text on-screen to act as "Title"
 		# Perhaps place title text on background image instead?
-		self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 3, GAME_WIDTH, "Organ Trail: The Game!", 50)
+		#self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 3, GAME_WIDTH, "Organ Trail: The Game!", 50)
+		title_screen_images = [
+			"images/titleScreen_0",
+			"images/titleScreen_1",
+			"images/titleScreen_2",
+			"images/titleScreen_3"
+		]
+		title_id = self.show_picture(title_screen_images, GAME_WIDTH / 4, 30, 10)
 
 		# Show animated picture offscreen...
 		pic_id = self.show_picture(["images/p1_frame_0.png", "images/p1_frame_1.png"], -500, 30)
 		# ... and move it to center of screen
-		self.move_picture(pic_id, (GAME_WIDTH / 2) - 250, 30, 200, False)
+		self.move_picture(pic_id, (GAME_WIDTH / 2) - 250, 20, 200, False)
 
 		# The format for the buttons' font
 		# ["Font Name", #Font Size#, #Font Weight#, ?Is Italic?]
@@ -28,9 +35,10 @@ class Scene_TitleScreen(Scene_Base):
 
 		BUTTON_WIDTH = 200
 		BUTTON_HEIGHT = 40
+		BUTTON_Y = GAME_HEIGHT * (3 / 4) + 20
 
 		self.add_button(x = (GAME_WIDTH * (1 / 4)) - (BUTTON_WIDTH / 2),
-						y = GAME_HEIGHT * (3 / 4), 
+						y = BUTTON_Y, 
 						w = BUTTON_WIDTH,
 						h = BUTTON_HEIGHT,
 						name = "Play New Game",
@@ -39,7 +47,7 @@ class Scene_TitleScreen(Scene_Base):
 						action = self.new_game)
 
 		self.add_button(x = (GAME_WIDTH * (2 / 4)) - (BUTTON_WIDTH / 2),
-						y = GAME_HEIGHT * (3 / 4), 
+						y = BUTTON_Y, 
 						w = BUTTON_WIDTH,
 						h = BUTTON_HEIGHT,
 						name = "Change Options",
@@ -48,7 +56,7 @@ class Scene_TitleScreen(Scene_Base):
 						action = self.options)
 
 		self.add_button(x = (GAME_WIDTH * (3 / 4)) - (BUTTON_WIDTH / 2),
-						y = GAME_HEIGHT * (3 / 4), 
+						y = BUTTON_Y, 
 						w = BUTTON_WIDTH,
 						h = BUTTON_HEIGHT,
 						name = "Quit Game",

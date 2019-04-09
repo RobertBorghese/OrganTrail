@@ -88,7 +88,6 @@ class Scene_Base(QGraphicsScene):
 						self.actually_show_dialog(self.actions[0])
 
 	def update_dialog_text(self):
-		#print(self.target_text)
 		if self.current_dialog_text is not None:
 			curr_text = self.current_dialog_text.toPlainText()
 			if curr_text != self.target_text:
