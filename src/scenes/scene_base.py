@@ -33,6 +33,8 @@ class Scene_Base(QGraphicsScene):
 		self.images = {}
 		self.moving_images = []
 		self.updatable_images = []
+		self.vaxx = None
+		self.entry = None
 
 	def create_fade(self, opc=1):
 		self.fading_box = QGraphicsRectItem(0, 0, self.width(), self.height())
@@ -444,7 +446,7 @@ class Scene_Base(QGraphicsScene):
 	#		  # there is a 70% chance of this happening
 	# ==============================================
 	def generate_random_chance(self, val):
-		return random.randint(0, 100) >= val
+		return random.randint(0, 100) <= val
 
 	# ==============================================
 	# Shows text on the screen (not in dialog).
@@ -507,6 +509,27 @@ class Scene_Base(QGraphicsScene):
 	def move_picture(self, image_id, x, y, duration, wait_until_finished=True):
 		self.add_call([12, image_id, x, y, duration, wait_until_finished])
 
+	#===============================================
+	# Sets the vaccination status
+	# True/False, 50% chance
+	#===============================================
+	def set_vaxx(self):
+		if self.generate_random_chance(50):
+			self.vaxx = True
+		else:
+			self.vaxx = False
+
+	#===============================================
+	# Sets the entry point
+	# 0 is for blood (cut)
+	# 1 is for stomach (mouth)
+	#===============================================	
+	def set_entry(self):
+		if self.generate_random_chance(50):
+			self.entry = 0
+		else:
+			self.entry = 1
+
 	# ==============================================
 	# Gets and sets global values
 	#
@@ -518,6 +541,7 @@ class Scene_Base(QGraphicsScene):
 	#     if self.get_value("Health") <= 30:
 	#         self.add_dialog("Player is less than 30 health!")
 	# ==============================================
+			
 	def set_value(self, name, value):
 		Scene_Base.GLOBAL_VARS[name] = value
 

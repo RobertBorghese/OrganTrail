@@ -1,5 +1,6 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_test import Scene_Test
+from scenes.scene_enter import Scene_Enter
 
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
@@ -27,7 +28,7 @@ class Scene_TitleScreen(Scene_Base):
 
 		# The format for the buttons' font
 		# ["Font Name", #Font Size#, #Font Weight#, ?Is Italic?]
-		FONT = ["Arial", 18, -1, False]
+		FONT = ["Arial", 15, -1, False]
 
 		# The format for the buttons' colors
 		# ["Top Color", "Bottom Color", "Outline Color"]
@@ -69,7 +70,8 @@ class Scene_TitleScreen(Scene_Base):
 		self.wait_for_button_press()
 
 	def new_game(self):
-		self.goto_scene(Scene_Test)
+		self.goto_scene(Scene_Enter)
+		#self.goto_scene(Scene_Test)
 
 	def options(self):
 		self.add_dialog("TODO: Actually make options scene.")
