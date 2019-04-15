@@ -4,14 +4,21 @@ import random
 from scenes.scene_base import Scene_Base
 import scenes.scene_other_test
 from scenes.scene_game_over import Scene_Game_Over
-from scenes.common.scene_platelet import Scene_Platelet
+from scenes.main_game.scene_platelet import Scene_Platelet
 
 FONT = ["Arial", 18, -1, False]
 
 class Scene_Edu_Blood(Scene_Base):
+
     def setup(self):
         #self.set_background("images/Background1.png") #replace with correct background
         self.play_song("audio/testmusic2.mp3")
+        if self.get_value("pathogen") == 1:
+            self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
+        elif self.get_value("pathogen") == 2:
+            self.show_picture("images/rashCrash_0.png", 700, 30, 30)
+        elif self.get_value("pathogen") == 3:
+            self.show_picture("images/blazeDaze_0.png", 700, 30, 30)
 
         self.add_dialog("The victim got a cut on their knee from a...football injury. Yes.")
         self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
@@ -56,6 +63,7 @@ class Scene_Edu_Blood(Scene_Base):
 		#bug: fades away to next scene too quickly, we can't see all the text
         if self.get_value("vaxx"):
             if self.generate_random_chance(20):
+                self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")
@@ -64,9 +72,11 @@ class Scene_Edu_Blood(Scene_Base):
             else:
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
+                
                 self.goto_scene(Scene_Game_Over)
         else:
             if self.generate_random_chance(100): #change to 80 eventually
+                self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")

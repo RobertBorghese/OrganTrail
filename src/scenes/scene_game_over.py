@@ -11,7 +11,7 @@ class Scene_Game_Over(Scene_Base):
 		self.add_dialog("Not all pathogens can succeed. Oh well, better luck next time.")
 		self.add_dialog("Thanks for playing!")
 		
-		self.add_button(x = 400,
+		self.add_button(x = 200,
 						y = 400, 
 						w = 300,
 						h = 40,

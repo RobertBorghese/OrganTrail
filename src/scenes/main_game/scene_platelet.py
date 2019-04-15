@@ -2,7 +2,7 @@
 
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
-from scenes.common.scene_bacteria import Scene_Bacteria
+from scenes.main_game.scene_bacteria import Scene_Bacteria
 
 class Scene_Platelet(Scene_Base):
     def setup(self):
@@ -43,4 +43,7 @@ class Scene_Platelet(Scene_Base):
         self.add_dialog("You keep moving upstream, ignoring the chaos at the platelets.")
         self.add_dialog("You keep moving upstream, ignoring the chaos at the platelets.")
         self.add_dialog("Good choice, you would've gotten caught in the fibrin otherwise, and that would've been the end.")
-        self.goto_scene(Scene_Bacteria)
+        if self.get_value("pathogen") == 1 or self.get_value("pathogen") == 2:
+            self.goto_scene(Scene_Bacteria)
+        else:
+            self.add_dialog("Todo: bacteria character path")

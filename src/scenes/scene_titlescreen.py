@@ -6,7 +6,7 @@ from scenes.scene_select_char import Scene_SelectChar
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
 		self.set_background("images/Background1.png")
-		self.play_song("audio/testmusic2.mp3")
+		self.play_song("audio/testmusic.wav")
 
 		GAME_WIDTH = self.window.game_width
 		GAME_HEIGHT = self.window.game_height
