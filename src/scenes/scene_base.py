@@ -35,6 +35,7 @@ class Scene_Base(QGraphicsScene):
 		self.updatable_images = []
 		self.vaxx = None
 		self.entry = None
+		self.pathogen = None
 
 	def create_fade(self, opc=1):
 		self.fading_box = QGraphicsRectItem(0, 0, self.width(), self.height())
@@ -515,9 +516,9 @@ class Scene_Base(QGraphicsScene):
 	#===============================================
 	def set_vaxx(self):
 		if self.generate_random_chance(50):
-			self.vaxx = True
+			Scene_Base.vaxx = True
 		else:
-			self.vaxx = False
+			Scene_Base.vaxx = False
 
 	#===============================================
 	# Sets the entry point
@@ -526,9 +527,9 @@ class Scene_Base(QGraphicsScene):
 	#===============================================	
 	def set_entry(self):
 		if self.generate_random_chance(50):
-			self.entry = 0
+			Scene_Base.entry = 0
 		else:
-			self.entry = 1
+			Scene_Base.entry = 1
 
 	# ==============================================
 	# Gets and sets global values

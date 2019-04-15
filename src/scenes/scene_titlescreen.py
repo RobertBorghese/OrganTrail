@@ -1,6 +1,7 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_test import Scene_Test
 from scenes.scene_enter import Scene_Enter
+from scenes.scene_select_char import Scene_SelectChar
 
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
@@ -70,7 +71,7 @@ class Scene_TitleScreen(Scene_Base):
 		self.wait_for_button_press()
 
 	def new_game(self):
-		self.goto_scene(Scene_Enter)
+		self.goto_scene(Scene_SelectChar)
 		#self.goto_scene(Scene_Test)
 
 	def options(self):
