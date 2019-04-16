@@ -22,8 +22,8 @@ class Scene_Edu_Blood(Scene_Base):
 
         self.add_dialog("The victim got a cut on their knee from a...football injury. Yes.")
         
-        #self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
-        #self.add_dialog("You took the chance and ran into the new opening. Now look around.")
+        self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
+        self.add_dialog("You took the chance and ran into the new opening. Now look around.")
         self.set_background("images/bloodstream.png")
         
         self.add_dialog("Ah, the bloodstream. So nice and tranquil, with cells all over the place.") 

@@ -19,5 +19,15 @@ class Scene_Game_Over(Scene_Base):
 						buttonColors = ["#7D7DB4","#64648C","252525"],
 						font = ["Arial", 18, -1, False],
 						action = self.close)
+		'''
+		self.add_button(x = 600,
+						y = 400, 
+						w = 300,
+						h = 40,
+						name = "Quit",
+						buttonColors = ["#7D7DB4","#64648C","252525"],
+						font = ["Arial", 18, -1, False],
+						action = self.goto_scene(Scene_TitleScreen))
+		'''
 	def close(self):
 		self.close_game()
