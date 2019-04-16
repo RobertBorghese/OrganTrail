@@ -36,6 +36,7 @@ class Scene_Base(QGraphicsScene):
 		self.vaxx = None
 		self.entry = None
 		self.pathogen = None
+		self.tempPic = None
 
 	def create_fade(self, opc=1):
 		self.fading_box = QGraphicsRectItem(0, 0, self.width(), self.height())

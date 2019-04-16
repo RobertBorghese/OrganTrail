@@ -21,23 +21,25 @@ class Scene_Edu_Blood(Scene_Base):
             self.show_picture("images/blazeDaze_0.png", 700, 30, 30)
 
         self.add_dialog("The victim got a cut on their knee from a...football injury. Yes.")
-        self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
-        self.add_dialog("You took the chance and ran into the new opening. Now look around.")
+        
+        #self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
+        #self.add_dialog("You took the chance and ran into the new opening. Now look around.")
         self.set_background("images/bloodstream.png")
-
+        '''
         self.add_dialog("Ah, the bloodstream. So nice and tranquil, with cells all over the place.") 
         self.add_dialog("Red blood cells, carrying oxygen, and white blood cells, looking for pathogens to kill.")
         self.add_dialog("They have no idea what they're in for.")
         self.add_dialog("But wait -- they've noticed the damage to the skin!") 
         self.add_dialog("Neutrophils, or first-responder white blood cells, are coming to catch the invaders!")
+        '''
         self.set_background("images/boxing.png")
 
         self.play_song("audio/danger_jingle.mp3") #note: keeps repeating, not sure how to stop
-		#Todo: add image of WBC like a pokemon just appeared
+        self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
+        self.move_picture(self.get_value("tempPic"), 200, 0, 30)
 
         self.add_dialog("A White Blood Cell arrived!")
         #chance of vaccination
-        print(self.get_value("vaxx"))
         if self.get_value("vaxx"):
             self.add_dialog("The victim is vaccinated, so you only have a 20% chance of beating the cell.")
             self.add_button(x = 400,
@@ -63,6 +65,8 @@ class Scene_Edu_Blood(Scene_Base):
 		#bug: fades away to next scene too quickly, we can't see all the text
         if self.get_value("vaxx"):
             if self.generate_random_chance(20):
+                self.move_picture(self.get_value("tempPic"), 200, -20, 20)
+                self.move_picture(self.get_value("tempPic"), 200, 600, 30)
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Hit! Show 'em who's boss!")
@@ -70,6 +74,7 @@ class Scene_Edu_Blood(Scene_Base):
 				#animation of WBC death
                 self.goto_scene(Scene_Platelet)
             else:
+                self.remove_all_buttons()
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 
@@ -79,11 +84,14 @@ class Scene_Edu_Blood(Scene_Base):
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Hit! Show 'em who's boss!")
+                self.move_picture(self.get_value("tempPic"), 200, -20, 20)
+                self.move_picture(self.get_value("tempPic"), 200, 600, 30)
                 self.add_dialog("Better get going before more show up...")
 				#animation of WBC death
                 self.goto_scene(Scene_Platelet)
 
             else:
+                self.remove_all_buttons()
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.goto_scene(Scene_Game_Over)
