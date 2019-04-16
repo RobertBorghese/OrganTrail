@@ -419,6 +419,15 @@ class Scene_Base(QGraphicsScene):
 		self.add_call([5, path])
 
 	# ==============================================
+	# Plays a sound effect once.
+	#
+	# Ex:
+	#     self.play_sound("audio/testmusic2.mp3")
+	# ==============================================
+	def play_sound(self, path):
+		self.add_call([50, path])
+
+	# ==============================================
 	# Once all buttons are created, this will wait for the player to press one.
 	#
 	# Ex:

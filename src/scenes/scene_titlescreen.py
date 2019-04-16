@@ -10,6 +10,11 @@ class Scene_TitleScreen(Scene_Base):
 		GAME_WIDTH = self.window.game_width
 		GAME_HEIGHT = self.window.game_height
 
+		# Show animated picture offscreen...
+		pic_id = self.show_picture(["images/hackPack_0.png", "images/hackPack_1.png"], -500, 30)
+		# ... and move it to center of screen
+		self.move_picture(pic_id, GAME_WIDTH, 20, 300, False)
+
 		# Shows a piece of text on-screen to act as "Title"
 		# Perhaps place title text on background image instead?
 		#self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 3, GAME_WIDTH, "Organ Trail: The Game!", 50)
@@ -20,11 +25,6 @@ class Scene_TitleScreen(Scene_Base):
 			"images/titleScreen_3"
 		]
 		title_id = self.show_picture(title_screen_images, GAME_WIDTH / 4, 30, 10)
-
-		# Show animated picture offscreen...
-		pic_id = self.show_picture(["images/p1_frame_0.png", "images/p1_frame_1.png"], -500, 30)
-		# ... and move it to center of screen
-		self.move_picture(pic_id, (GAME_WIDTH / 2) - 250, 20, 200, False)
 
 		# The format for the buttons' font
 		# ["Font Name", #Font Size#, #Font Weight#, ?Is Italic?]
