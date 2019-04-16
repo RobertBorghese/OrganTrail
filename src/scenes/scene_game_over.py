@@ -8,17 +8,9 @@ class Scene_Game_Over(Scene_Base):
 		self.set_background("images/Background1.png")
 		self.play_song("audio/gameover.mp3")
 		self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 3, GAME_WIDTH / 2, "Game Over!", 50)
+		self.add_dialog("Not all pathogens can succeed. Oh well, better luck next time.")
 		self.add_dialog("Thanks for playing!")
-		'''
-		self.add_button(x = 600,
-						y = 400, 
-						w = 300,
-						h = 40,
-						name = "Back to Menu",
-						buttonColors = ["#7D7DB4","#64648C","252525"],
-						font = ["Arial", 18, -1, False],
-						action = self.menu)
-						'''
+		
 		self.add_button(x = 200,
 						y = 400, 
 						w = 300,
@@ -26,4 +18,16 @@ class Scene_Game_Over(Scene_Base):
 						name = "Quit",
 						buttonColors = ["#7D7DB4","#64648C","252525"],
 						font = ["Arial", 18, -1, False],
-						action = self.close_game())
+						action = self.close)
+		'''
+		self.add_button(x = 600,
+						y = 400, 
+						w = 300,
+						h = 40,
+						name = "Quit",
+						buttonColors = ["#7D7DB4","#64648C","252525"],
+						font = ["Arial", 18, -1, False],
+						action = self.goto_scene(Scene_TitleScreen))
+		'''
+	def close(self):
+		self.close_game()

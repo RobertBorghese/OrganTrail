@@ -1,11 +1,12 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_test import Scene_Test
 from scenes.scene_enter import Scene_Enter
+from scenes.scene_select_char import Scene_SelectChar
 
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
 		self.set_background("images/Background1.png")
-		self.play_song("audio/testmusic2.mp3")
+		self.play_song("audio/testmusic.wav")
 
 		GAME_WIDTH = self.window.game_width
 		GAME_HEIGHT = self.window.game_height
@@ -70,7 +71,7 @@ class Scene_TitleScreen(Scene_Base):
 		self.wait_for_button_press()
 
 	def new_game(self):
-		self.goto_scene(Scene_Enter)
+		self.goto_scene(Scene_SelectChar)
 		#self.goto_scene(Scene_Test)
 
 	def options(self):
