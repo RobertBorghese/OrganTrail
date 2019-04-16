@@ -33,14 +33,14 @@ class Scene_Platelet(Scene_Base):
 						buttonColors = ["#7D7DB4","#64648C","252525"],
 						font = ["Arial", 17, -1, False],
 						action = self.move)
+        self.wait_for_button_press()
+
     def look(self):
-        self.add_dialog("Uh oh! You got caught in the fibrin, and got crushed in the chaos!")
         self.add_dialog("Uh oh! You got caught in the fibrin, and got crushed in the chaos!")
         self.add_dialog("Too bad, that's the end for you.")
         self.goto_scene(Scene_Game_Over)
 
     def move(self):
-        self.add_dialog("You keep moving upstream, ignoring the chaos at the platelets.")
         self.add_dialog("You keep moving upstream, ignoring the chaos at the platelets.")
         self.add_dialog("Good choice, you would've gotten caught in the fibrin otherwise, and that would've been the end.")
         if self.get_value("pathogen") == 1 or self.get_value("pathogen") == 2:

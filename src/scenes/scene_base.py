@@ -243,7 +243,6 @@ class Scene_Base(QGraphicsScene):
 		self.addItem(self.dialog_box)
 
 	def actually_hide_dialog_box(self):
-		print("hide dialog box")
 		if self.dialog_box is not None:
 			self.removeItem(self.dialog_box)
 			self.dialog_box = None
@@ -419,6 +418,15 @@ class Scene_Base(QGraphicsScene):
 	# ==============================================
 	def play_song(self, path):
 		self.add_call([5, path])
+
+	# ==============================================
+	# Plays a sound effect once.
+	#
+	# Ex:
+	#     self.play_sound("audio/testmusic2.mp3")
+	# ==============================================
+	def play_sound(self, path):
+		self.add_call([50, path])
 
 	# ==============================================
 	# Once all buttons are created, this will wait for the player to press one.

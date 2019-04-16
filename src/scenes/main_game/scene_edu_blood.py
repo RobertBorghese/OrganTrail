@@ -62,6 +62,8 @@ class Scene_Edu_Blood(Scene_Base):
 						action = self.fight)
         self.wait_for_button_press()
 
+        self.wait_for_button_press()
+
     def fight(self):
 		#bug: fades away to next scene too quickly, we can't see all the text
         if self.get_value("vaxx"):
@@ -70,20 +72,17 @@ class Scene_Edu_Blood(Scene_Base):
                 self.move_picture(self.get_value("tempPic"), 200, 600, 30)
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
-                self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")
 				#animation of WBC death
                 self.goto_scene(Scene_Platelet)
             else:
                 self.remove_all_buttons()
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
-                self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 
                 self.goto_scene(Scene_Game_Over)
         else:
             if self.generate_random_chance(100): #change to 80 eventually
                 self.remove_all_buttons()
-                self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.move_picture(self.get_value("tempPic"), 200, -20, 20)
                 self.move_picture(self.get_value("tempPic"), 200, 600, 30)
@@ -93,6 +92,5 @@ class Scene_Edu_Blood(Scene_Base):
 
             else:
                 self.remove_all_buttons()
-                self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.goto_scene(Scene_Game_Over)
