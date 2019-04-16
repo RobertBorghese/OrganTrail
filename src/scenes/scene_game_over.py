@@ -1,5 +1,5 @@
 from scenes.scene_base import Scene_Base
-#from scenes.scene_titlescreen import Scene_TitleScreen
+import scenes.scene_titlescreen 
 
 class Scene_Game_Over(Scene_Base):
 	def setup(self):
@@ -19,15 +19,18 @@ class Scene_Game_Over(Scene_Base):
 						buttonColors = ["#7D7DB4","#64648C","252525"],
 						font = ["Arial", 18, -1, False],
 						action = self.close)
-		'''
+		
 		self.add_button(x = 600,
 						y = 400, 
 						w = 300,
 						h = 40,
-						name = "Quit",
+						name = "Back to Main",
 						buttonColors = ["#7D7DB4","#64648C","252525"],
 						font = ["Arial", 18, -1, False],
-						action = self.goto_scene(Scene_TitleScreen))
-		'''
+						action = self.title)
+		
 	def close(self):
 		self.close_game()
+
+	def title(self):
+		self.goto_scene(scenes.scene_titlescreen.Scene_TitleScreen)
