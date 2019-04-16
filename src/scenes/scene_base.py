@@ -243,7 +243,6 @@ class Scene_Base(QGraphicsScene):
 		self.addItem(self.dialog_box)
 
 	def actually_hide_dialog_box(self):
-		print("hide dialog box")
 		if self.dialog_box is not None:
 			self.removeItem(self.dialog_box)
 			self.dialog_box = None
