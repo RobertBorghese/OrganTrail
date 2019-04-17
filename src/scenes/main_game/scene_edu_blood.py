@@ -60,7 +60,6 @@ class Scene_Edu_Blood(Scene_Base):
 						buttonColors = ["#7D7DB4","#64648C","252525"],
 						font = ["Arial", 18, -1, False],
 						action = self.fight)
-        self.wait_for_button_press()
 
         self.wait_for_button_press()
 
