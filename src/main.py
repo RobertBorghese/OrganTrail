@@ -9,8 +9,8 @@ from scenes.main_game.scene_bacteria import Scene_Bacteria
 from audio.audio_player import AudioPlayer
 
 # Set this to the first scene of the game
-#FIRST_SCENE = Scene_TitleScreen
-FIRST_SCENE = Scene_Game_Over
+FIRST_SCENE = Scene_TitleScreen
+#FIRST_SCENE = Scene_Bacteria
 
 # Set this to the screen width and height
 RESOLUTION_WIDTH = 1108

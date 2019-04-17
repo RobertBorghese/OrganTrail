@@ -6,7 +6,7 @@ class Scene_Game_Over(Scene_Base):
 		GAME_WIDTH = self.window.game_width
 		GAME_HEIGHT = self.window.game_height
 
-		self.set_value("pathogen", 2)
+		#self.set_value("pathogen", 2)
 
 		self.set_background("images/Background2.jpg")
 		self.play_song("audio/gameover.mp3")
