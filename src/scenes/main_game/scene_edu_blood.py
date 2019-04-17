@@ -34,11 +34,12 @@ class Scene_Edu_Blood(Scene_Base):
         
         self.set_background("images/boxing.png")
 
-        self.play_sound("audio/danger_jingle.mp3") #note: keeps repeating, not sure how to stop
         self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
         self.move_picture(self.get_value("tempPic"), 200, 0, 30)
-
         self.add_dialog("A White Blood Cell arrived!")
+        self.play_sound("audio/danger_jingle.mp3") #note: keeps repeating, not sure how to stop
+        self.play_song("audio/combatmusic.mp3")
+        
         #chance of vaccination
         if self.get_value("vaxx"):
             self.add_dialog("The victim is vaccinated, so you only have a 20% chance of beating the cell.")

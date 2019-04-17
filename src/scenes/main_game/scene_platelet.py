@@ -6,10 +6,22 @@ from scenes.main_game.scene_bacteria import Scene_Bacteria
 
 class Scene_Platelet(Scene_Base):
     def setup(self):
+        '''
+        self.set_value("vaxx", True)
+        self.set_value("entry", 0)
+        self.set_value("pathogen", 1)
+        '''
         self.play_song("audio/testmusic2.mp3")
         self.set_background("images/bloodstream.png")
+        if self.get_value("pathogen") == 1:
+            self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
+        elif self.get_value("pathogen") == 2:
+            self.show_picture("images/rashCrash_0.png", 700, 30, 30)
+        elif self.get_value("pathogen") == 3:
+            self.show_picture("images/blazeDaze_0.png", 700, 30, 30)
 
         self.add_dialog("Look at that, it's the platelets!")
+        self.show_picture("images/platelet.png", -50, 0, 30)
         self.add_dialog("They always gather at a damaged blood vessel to fix it.")
         self.add_dialog("They produce a substance called fibrin, which patches up the leak.")
         self.add_dialog("Blood cells get caught in the fibrin and eventually plug the hole completely.")
@@ -36,14 +48,16 @@ class Scene_Platelet(Scene_Base):
         self.wait_for_button_press()
 
     def look(self):
+        self.remove_all_buttons()
         self.add_dialog("Uh oh! You got caught in the fibrin, and got crushed in the chaos!")
         self.add_dialog("Too bad, that's the end for you.")
         self.goto_scene(Scene_Game_Over)
 
     def move(self):
+        self.remove_all_buttons()
         self.add_dialog("You keep moving upstream, ignoring the chaos at the platelets.")
         self.add_dialog("Good choice, you would've gotten caught in the fibrin otherwise, and that would've been the end.")
-        if self.get_value("pathogen") == 1 or self.get_value("pathogen") == 2:
+        if self.get_value("pathogen") != 3:
             self.goto_scene(Scene_Bacteria)
         else:
             self.add_dialog("Todo: bacteria character path")

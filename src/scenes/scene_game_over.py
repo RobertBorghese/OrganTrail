@@ -5,9 +5,20 @@ class Scene_Game_Over(Scene_Base):
 	def setup(self):
 		GAME_WIDTH = self.window.game_width
 		GAME_HEIGHT = self.window.game_height
-		self.set_background("images/Background1.png")
+
+		self.set_value("pathogen", 2)
+
+		self.set_background("images/Background2.jpg")
 		self.play_song("audio/gameover.mp3")
-		self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 3, GAME_WIDTH / 2, "Game Over!", 50)
+		self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 20, GAME_WIDTH / 2, "Game Over!", 50)
+
+		if self.get_value("pathogen") == 1:
+			self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], 300, 30, 30)
+		elif self.get_value("pathogen") == 2:
+			self.show_picture(["images/rashCrash_0.png", "images/rashCrash_1.png"], 300, 30, 30)
+		else:
+			self.show_picture(["images/blazeDaze_0.png", "images/blazeDaze_1.png"], 300, 30, 30)
+
 		self.add_dialog("Not all pathogens can succeed. Oh well, better luck next time.")
 		self.add_dialog("Thanks for playing!")
 		
