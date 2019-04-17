@@ -22,17 +22,18 @@ class Scene_Anitibodies(Scene_Base):
         self.add_dialog("You can probably make your way to the stomach area this way.")
         self.add_dialog("Just ride this out and you'll find yourself there in no time.")
         self.add_dialog("Wait...what's this??")
+
         antibodies = self.show_picture("images/antibodies.png", -200, 100, 30)
         self.move_picture(antibodies, 300, 100, 30)
-        #antibodies
         self.add_dialog("A white blood cell just shot you with antibodies! If they stick to you, that means your cover is blown.")
         self.add_dialog("Oh no, here it comes...")
         self.move_picture(antibodies, 1500, 100, 30)
+        #hide_picture not working, not sure what the issue is
         #self.hide_picture(antibodies)
 
         #fight scene
         self.set_background("images/boxing.png")
-        self.play_sound("audio/danger_jingle.mp3") #note: keeps repeating, not sure how to stop
+        self.play_sound("audio/danger_jingle.mp3") #note: not playing at all
         self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
         self.move_picture(self.get_value("tempPic"), 200, 0, 30)
         self.add_dialog("A White Blood Cell arrived!")
