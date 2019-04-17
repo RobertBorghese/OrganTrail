@@ -205,6 +205,8 @@ class Scene_Base(QGraphicsScene):
 				self.actually_hide_image(action)
 			elif action_type is 12:
 				self.actually_move_image(action)
+			elif action_type is 50:
+				self.actually_play_sound(action)
 
 	def call_next_action(self):
 		self.finish_action()
@@ -341,6 +343,10 @@ class Scene_Base(QGraphicsScene):
 		self.moving_images.append(image_data)
 		if not data[5]:
 			self.call_next_action()
+
+	def actually_play_sound(self, data):
+		AudioPlayer.play_sound_effect(data[1])
+		self.call_next_action()
 
 	# ==============================================
 	# * Setup Calls
