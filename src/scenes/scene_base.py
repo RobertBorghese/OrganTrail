@@ -328,8 +328,8 @@ class Scene_Base(QGraphicsScene):
 		self.call_next_action()
 
 	def actually_hide_image(self, data):
-		self.removeItem(self.texts[data[1]])
-		self.texts[data[1]] = None
+		self.removeItem(self.images[data[1]])
+		self.images[data[1]] = None
 		self.call_next_action()
 
 	def actually_move_image(self, data):

@@ -21,12 +21,12 @@ BUTTON_PRESS_SOUND_EFFECT = "audio/se_button_click.wav"
 class MyWindow(QWidget):
 	def __init__(self):
 		super().__init__(None, self.get_flags())
-		AudioPlayer.preload_sound_effect("audio/danger_jingle.mp3")
 		self.game_width = RESOLUTION_WIDTH
 		self.game_height = RESOLUTION_HEIGHT
 		self.setup_window()
 		self.setup_game_view()
 		self.setup_game_scene()
+		AudioPlayer.preload_sound_effect("audio/danger_jingle.mp3")
 
 	def get_flags(self):
 		return (Qt.Dialog 
