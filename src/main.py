@@ -4,10 +4,13 @@ from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QVBoxLayout
 
 from scenes.scene_titlescreen import Scene_TitleScreen
+from scenes.scene_game_over import Scene_Game_Over
+from scenes.main_game.scene_bacteria import Scene_Bacteria
 from audio.audio_player import AudioPlayer
 
 # Set this to the first scene of the game
 FIRST_SCENE = Scene_TitleScreen
+#FIRST_SCENE = Scene_Bacteria
 
 # Set this to the screen width and height
 RESOLUTION_WIDTH = 1108
