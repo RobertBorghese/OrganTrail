@@ -4,6 +4,7 @@ from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtWidgets import QApplication, QWidget, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QVBoxLayout
 
 from scenes.scene_titlescreen import Scene_TitleScreen
+from audio.audio_player import AudioPlayer
 
 # Set this to the first scene of the game
 FIRST_SCENE = Scene_TitleScreen
