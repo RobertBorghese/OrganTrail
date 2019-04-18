@@ -10,14 +10,22 @@ class Scene_Game_Over(Scene_Base):
 
 		self.set_background("images/Background2.jpg")
 		self.play_song("audio/gameover.mp3")
-		self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 20, GAME_WIDTH / 2, "Game Over!", 50)
+		#self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 20, GAME_WIDTH / 2, "Game Over!", 50)
 
 		if self.get_value("pathogen") == 1:
-			self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], 300, 30, 30)
+			self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH / 4, 30, 30)
 		elif self.get_value("pathogen") == 2:
-			self.show_picture(["images/rashCrash_0.png", "images/rashCrash_1.png"], 300, 30, 30)
+			self.show_picture(["images/rashCrash_0.png", "images/rashCrash_1.png"], GAME_WIDTH / 4, 30, 30)
 		else:
-			self.show_picture(["images/blazeDaze_0.png", "images/blazeDaze_1.png"], 300, 30, 30)
+			self.show_picture(["images/blazeDaze_0.png", "images/blazeDaze_1.png"], GAME_WIDTH / 4, 30, 30)
+
+		game_over_images = [
+			"images/gameOverV2_0",
+			"images/gameOverV2_1",
+			"images/gameOverV2_2",
+			"images/gameOverV2_3"
+		]
+		title_id = self.show_picture(game_over_images, GAME_WIDTH / 4, 5, 20)
 
 		self.add_dialog("Not all pathogens can succeed. Oh well, better luck next time.")
 		self.add_dialog("Thanks for playing!")
