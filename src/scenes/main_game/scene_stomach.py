@@ -5,11 +5,11 @@ from scenes.main_game.scene_intestine import Scene_Intestine
 
 class Scene_Stomach(Scene_Base):
     def setup(self):
-        
+        '''
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
         self.set_value("pathogen", 1)
-        
+        '''
         #only jelly belly goes here
         self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
         self.play_song("audio/testmusic2.mp3")

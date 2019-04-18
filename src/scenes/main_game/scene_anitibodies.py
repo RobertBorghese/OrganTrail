@@ -34,7 +34,7 @@ class Scene_Anitibodies(Scene_Base):
 
         #fight scene
         self.set_background("images/boxing.png")
-        self.play_sound("audio/danger_jingle.mp3") #note: not playing at all
+        self.play_sound("audio/danger_jingle.wav") #note: not playing at all
         self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
         self.move_picture(self.get_value("tempPic"), 200, 0, 30)
         self.add_dialog("A White Blood Cell arrived!")

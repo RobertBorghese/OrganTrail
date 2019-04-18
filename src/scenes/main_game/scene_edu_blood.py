@@ -11,6 +11,7 @@ FONT = ["Arial", 18, -1, False]
 class Scene_Edu_Blood(Scene_Base):
 
     def setup(self):
+
         #self.set_background("images/Background1.png") #replace with correct background
         self.play_song("audio/testmusic2.mp3")
         if self.get_value("pathogen") == 1:
@@ -21,9 +22,9 @@ class Scene_Edu_Blood(Scene_Base):
             self.show_picture("images/blazeDaze_0.png", 700, 30, 30)
 
         self.add_dialog("The victim got a cut on their knee from a...football injury. Yes.")
-        
         self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
         self.add_dialog("You took the chance and ran into the new opening. Now look around.")
+
         self.set_background("images/bloodstream.png")
         
         self.add_dialog("Ah, the bloodstream. So nice and tranquil, with cells all over the place.") 
@@ -36,9 +37,9 @@ class Scene_Edu_Blood(Scene_Base):
 
         self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
         self.move_picture(self.get_value("tempPic"), 200, 0, 30)
-        self.add_dialog("A White Blood Cell arrived!")
-        self.play_sound("audio/danger_jingle.mp3") #note: keeps repeating, not sure how to stop
+        self.play_sound("audio/danger_jingle.wav")
         self.play_song("audio/combatmusic.mp3")
+        self.add_dialog("A White Blood Cell arrived!")
         
         #chance of vaccination
         if self.get_value("vaxx"):

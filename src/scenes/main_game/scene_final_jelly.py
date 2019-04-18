@@ -1,9 +1,8 @@
 #Shash
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
-from scenes.main_game.scene_final_jelly import Scene_Final_Jelly
 
-class Scene_Intestine(Scene_Base):
+class Scene_Final_Jelly(Scene_Base):
     def setup(self):
         
         self.set_value("vaxx", False)

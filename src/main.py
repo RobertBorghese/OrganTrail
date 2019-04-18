@@ -10,8 +10,8 @@ from scenes.main_game.scene_stomach import Scene_Stomach
 from audio.audio_player import AudioPlayer
 
 # Set this to the first scene of the game
-#FIRST_SCENE = Scene_TitleScreen
-FIRST_SCENE = Scene_Stomach
+FIRST_SCENE = Scene_TitleScreen
+#FIRST_SCENE = Scene_Stomach
 
 # Set this to the screen width and height
 RESOLUTION_WIDTH = 1108
@@ -27,7 +27,7 @@ class MyWindow(QWidget):
 		self.setup_window()
 		self.setup_game_view()
 		self.setup_game_scene()
-		AudioPlayer.preload_sound_effect("audio/danger_jingle.mp3")
+		AudioPlayer.preload_sound_effect("audio/danger_jingle.wav")
 
 	def get_flags(self):
 		return (Qt.Dialog 
