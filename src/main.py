@@ -26,7 +26,7 @@ class MyWindow(QWidget):
 		self.setup_window()
 		self.setup_game_view()
 		self.setup_game_scene()
-		AudioPlayer.preload_sound_effect("audio/danger_jingle.mp3")
+		AudioPlayer.preload_sound_effect("audio/danger_jingle.wav")
 
 	def get_flags(self):
 		return (Qt.Dialog 
