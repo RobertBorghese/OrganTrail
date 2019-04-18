@@ -1,5 +1,6 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_enter import Scene_Enter
+import scenes.scene_titlescreen 
 
 class Scene_Settings(Scene_Base):
 	def setup(self):
