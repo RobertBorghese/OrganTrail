@@ -2,6 +2,7 @@ from scenes.scene_base import Scene_Base
 from scenes.scene_test import Scene_Test
 from scenes.scene_enter import Scene_Enter
 from scenes.scene_select_char import Scene_SelectChar
+from scenes.scene_settings import Scene_Settings
 
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
@@ -75,8 +76,7 @@ class Scene_TitleScreen(Scene_Base):
 		#self.goto_scene(Scene_Test)
 
 	def options(self):
-		self.add_dialog("TODO: Actually make options scene.")
-		self.hide_dialog_box()
+		self.goto_scene(Scene_Settings)
 
 	def quit(self):
 		self.close_game()
