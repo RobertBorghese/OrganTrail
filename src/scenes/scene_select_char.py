@@ -40,14 +40,24 @@ class Scene_SelectChar(Scene_Base):
 					font = ["Arial", 18, -1, False],
 					action = self.blaze)
 
+    #set_Value provides global access to character animation
     def jelly(self):
         self.set_value("pathogen", 1)
+        self.set_value("player_frames", ["images/jellyBelly_0", "images/jellyBelly_1"])
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
         self.goto_scene(Scene_Enter)
     
     def rash(self):
         self.set_value("pathogen", 2)
+        self.set_value("player_frames", ["images/rashCrash_0", "images/rashCrash_1"])
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
         self.goto_scene(Scene_Enter)
 
     def blaze(self):
         self.set_value("pathogen", 3)
+        self.set_value("player_frames", ["images/blazeDaze_0", "images/blazeDaze_1"])
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
         self.goto_scene(Scene_Enter)
