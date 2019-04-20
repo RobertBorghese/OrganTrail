@@ -9,26 +9,25 @@ FONT = ["Arial", 18, -1, False]
 
 class Scene_Enter(Scene_Base):
 	def setup(self):
+		GAME_WIDTH = self.window.game_width
+		GAME_HEIGHT = self.window.game_height
 
 		self.play_song("audio/testmusic2.mp3")
-
-		#Image and description of user's character
+		
+        #Image and description of user's character
+		self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH, 30, 20))
+		self.move_picture(self.get_value("player_animation"), -100, 30, 50)
+		
 		if self.get_value("pathogen") == 1:
 			self.add_dialog("Hello, Jelly Belly!")
-			pic_id = self.show_picture("images/jellyBelly_0.png", 500, 30, 30)
-			self.move_picture(pic_id, -100, 30, 50)
 			self.add_dialog("You are a virus that targets the stomach and digestive system, causing stomach aches.")
 
 		elif self.get_value("pathogen") == 2:
 			self.add_dialog("Hello, Rash Crash!")
-			pic_id = self.show_picture("images/rashCrash_0.png", 500, 30, 30)
-			self.move_picture(pic_id, -100, 30, 50)
 			self.add_dialog("You are a virus that targets the outer skin layer, causing rashes.")
 
 		elif self.get_value("pathogen") == 3:
 			self.add_dialog("Hello, Blaze Daze!")
-			pic_id = self.show_picture("images/blazeDaze_0.png", 500, 30, 30)
-			self.move_picture(pic_id, -100, 30, 50)
 			self.add_dialog("You are a bacteria that causes high fevers.")
 
 		self.add_dialog("It's a cruel world out there, and you look like you need some place warm, with lots of nourishment.")
