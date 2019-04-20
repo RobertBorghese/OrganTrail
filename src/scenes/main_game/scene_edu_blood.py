@@ -12,14 +12,14 @@ class Scene_Edu_Blood(Scene_Base):
 
     def setup(self):
 
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
         #self.set_background("images/Background1.png") #replace with correct background
         self.play_song("audio/testmusic2.mp3")
-        if self.get_value("pathogen") == 1:
-            self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
-        elif self.get_value("pathogen") == 2:
-            self.show_picture("images/rashCrash_0.png", 700, 30, 30)
-        elif self.get_value("pathogen") == 3:
-            self.show_picture("images/blazeDaze_0.png", 700, 30, 30)
+		
+	#set_Value provides global access to character animation
+	#move character here
+        self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
 
         self.add_dialog("The victim got a cut on their knee from a...football injury. Yes.")
         self.add_dialog("Not because they slipped while they were running to turn off the oven with Bagel Bites inside.")
@@ -35,10 +35,15 @@ class Scene_Edu_Blood(Scene_Base):
         
         self.set_background("images/boxing.png")
 
-        self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
-        self.move_picture(self.get_value("tempPic"), 200, 0, 30)
+        self.set_value("wbc", self.show_picture(["images/wbc_0", "images/wbc_1", "images/wbc_2", "images/wbc_3"], -100, 0))
+        self.move_picture(self.get_value("wbc"), GAME_WIDTH/32, 0, 20)
         self.play_sound("audio/danger_jingle.wav")
         self.play_song("audio/combatmusic.mp3")
+		
+		#player character bounce animation
+        self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/2, -20, 15)
+        self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/2, 30, 15)
+		
         self.add_dialog("A White Blood Cell arrived!")
         
         #chance of vaccination
@@ -66,32 +71,64 @@ class Scene_Edu_Blood(Scene_Base):
         self.wait_for_button_press()
 
     def fight(self):
+	
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
 		#bug: fades away to next scene too quickly, we can't see all the text
         if self.get_value("vaxx"):
             if self.generate_random_chance(20):
-                self.move_picture(self.get_value("tempPic"), 200, -20, 20)
-                self.move_picture(self.get_value("tempPic"), 200, 600, 30)
+				#animation to attack
+                self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/32, 30, 15)
+                self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/2, 30, 15)
+				
+				#animation of WBC death
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/32, -20, 20)
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/32, 600, 30)
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")
-				#animation of WBC death
+				
                 self.goto_scene(Scene_Platelet)
             else:
                 self.remove_all_buttons()
+				
+				#wbc animation to attack
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 30, 20)
+				
+				#wbc chowing down motion
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 35, 10)
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 25, 10)
+				
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 
                 self.goto_scene(Scene_Game_Over)
         else:
-            if self.generate_random_chance(100): #change to 80 eventually
+            if self.generate_random_chance(80): #change to 80 eventually
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
-                self.move_picture(self.get_value("tempPic"), 200, -20, 20)
-                self.move_picture(self.get_value("tempPic"), 200, 600, 30)
-                self.add_dialog("Better get going before more show up...")
+				
+				#animation to attack
+                self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/32, 30, 15)
+                self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/2, 30, 15)
+				
 				#animation of WBC death
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/32, -20, 20)
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/32, 600, 30)
+                self.add_dialog("Better get going before more show up...")
+				
                 self.goto_scene(Scene_Platelet)
 
             else:
                 self.remove_all_buttons()
+				
+				#wbc animation to attack
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 30, 20)
+				
+				#wbc chowing down  motion
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 40, 30)
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 20, 30)
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 40, 30)
+                self.move_picture(self.get_value("wbc"), GAME_WIDTH/2, 20, 30)
+				
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
                 self.goto_scene(Scene_Game_Over)
