@@ -64,7 +64,7 @@ class Scene_Final_Jelly(Scene_Base):
         self.add_dialog("And now...make more copies of your mutated self! This is perfect!")
         self.add_dialog("Soon, the victim will start feeling even more pain, and they will go to the doctor's.")
         self.add_dialog("And that one visit will land them a nice, hefty bill. Isn't that the sweetest victory of all?")
-        #goto scene VICTORY
+        self.add_dialog("GOTO: VICTORY!")
 
 
     

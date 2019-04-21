@@ -3,7 +3,7 @@ from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
 from scenes.main_game.scene_neuron import Scene_Neuron
 from scenes.main_game.scene_antibodies import Scene_Antibodies
-from scenes.main_game.scene_fission import Scene_Fission
+from scenes.main_game.scene_neuron import Scene_Neuron
 
 class Scene_Stomach_Alt(Scene_Base):
     def setup(self):
@@ -65,9 +65,9 @@ class Scene_Stomach_Alt(Scene_Base):
         self.add_dialog("You decide to keep moving. You find a nice open slot and enter the bloodstream.")
         self.add_dialog("There are fewer defense cells here.")
         if self.get_value("pathogen") == 2:
-            self.goto_scene(Scene_Antibodies)
+            self.goto_scene(Scene_Neuron)
         else:
-            self.goto_scene(Scene_Fission)
+            self.goto_scene(Scene_Antibodies)
 
 
     
