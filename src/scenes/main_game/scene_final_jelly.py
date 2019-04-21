@@ -4,11 +4,15 @@ from scenes.scene_game_over import Scene_Game_Over
 
 class Scene_Final_Jelly(Scene_Base):
     def setup(self):
-        
+        '''
+        #Note: This block is for testing only. Use if you are skipping straight to this scene
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
-        self.set_value("pathogen", 1)
-        
+        self.set_value("pathogen", 1) #change as needed
+        self.set_value("player_frames", ["images/jelyBelly_0", "images/jellyBelly_1"]) #change as needed
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
+        '''
         #only jelly belly goes here
         self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
         self.play_song("audio/testmusic2.mp3")

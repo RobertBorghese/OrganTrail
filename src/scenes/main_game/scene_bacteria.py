@@ -2,13 +2,18 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
 from scenes.main_game.scene_anitibodies import Scene_Anitibodies
+from scenes.main_game.scene_neuron import Scene_Neuron
 
 class Scene_Bacteria(Scene_Base):
     def setup(self):
         '''
+        #Note: This block is for testing only. Use if you are skipping straight to this scene
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
-        self.set_value("pathogen", 1)
+        self.set_value("pathogen", 1) #change as needed
+        self.set_value("player_frames", ["images/rashCrash_0", "images/rashCrash_1"]) #change as needed
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
         '''
         GAME_WIDTH = self.window.game_width
         GAME_HEIGHT = self.window.game_height
@@ -98,10 +103,10 @@ class Scene_Bacteria(Scene_Base):
         if self.get_value("pathogen") == 1:
             self.goto_scene(Scene_Anitibodies)
         else:
-            self.add_dialog("Goto next Rash Crash scene")
+            self.goto_scene(Scene_Neuron)
 
     def right(self):
         self.remove_all_buttons()
         self.add_dialog("Well...we all make bad decisions. Unfortunately this bad decision was your last.")
-        self.add_dialog("This is the end for you. But hey, maybe one of your other clones might have success?")
+        self.add_dialog("This is the end for you. But hey, maybe one of your other clones might find success.")
         self.goto_scene(Scene_Game_Over)

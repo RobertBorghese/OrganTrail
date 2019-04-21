@@ -2,16 +2,22 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
 from scenes.main_game.scene_stomach import Scene_Stomach
+from scenes.main_game.scene_fever import Scene_Fever
 
 class Scene_Anitibodies(Scene_Base):
     def setup(self):
         '''
+        #Note: This block is for testing only. Use if you are skipping straight to this scene
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
-        self.set_value("pathogen", 1)
+        self.set_value("pathogen", 1) #change as needed
+        self.set_value("player_frames", ["images/rashCrash_0", "images/rashCrash_1"]) #change as needed
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
         '''
-        #only jelly belly goes here
-        self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
+        self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
         self.play_song("audio/testmusic2.mp3")
         self.set_background("images/bloodstream.png")
 
@@ -20,7 +26,7 @@ class Scene_Anitibodies(Scene_Base):
         self.add_dialog("Red blood cells in particular carry oxygen to different parts of the body.")
         self.add_dialog("They go from the heart to large arteries, and then to smaller capillaries near different organs.")
         self.add_dialog("Once they deliver the oxygen, they exit and travel back to the heart through veins.")
-        self.add_dialog("You can probably make your way to the stomach area this way.")
+        self.add_dialog("You can probably make your way to your goal this way.")
         self.add_dialog("Just ride this out and you'll find yourself there in no time.")
         self.add_dialog("Wait...what's this??")
 
@@ -74,7 +80,10 @@ class Scene_Anitibodies(Scene_Base):
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")
-                self.goto_scene(Scene_Stomach)
+                if self.get_value("pathogen") != 3:
+                    self.goto_scene(Scene_Stomach)
+                else:
+                    self.goto_scene(Scene_Fever)
             else:
                 self.remove_all_buttons()
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
@@ -87,7 +96,10 @@ class Scene_Anitibodies(Scene_Base):
                 self.move_picture(self.get_value("tempPic"), 200, -20, 20)
                 self.move_picture(self.get_value("tempPic"), 200, 600, 30)
                 self.add_dialog("Better get going before more show up...")
-                self.goto_scene(Scene_Stomach)
+                if self.get_value("pathogen") != 3:
+                    self.goto_scene(Scene_Stomach)
+                else:
+                    self.goto_scene(Scene_Fever)
 
             else:
                 self.remove_all_buttons()

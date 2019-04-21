@@ -3,22 +3,19 @@
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
 from scenes.main_game.scene_bacteria import Scene_Bacteria
+from scenes.main_game.scene_fission import Scene_Fission
 
 class Scene_Platelet(Scene_Base):
     def setup(self):
-        '''
-        self.set_value("vaxx", True)
-        self.set_value("entry", 0)
-        self.set_value("pathogen", 1)
-        '''
+        
         self.play_song("audio/testmusic2.mp3")
         self.set_background("images/bloodstream.png")
-        if self.get_value("pathogen") == 1:
-            self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
-        elif self.get_value("pathogen") == 2:
-            self.show_picture("images/rashCrash_0.png", 700, 30, 30)
-        elif self.get_value("pathogen") == 3:
-            self.show_picture("images/blazeDaze_0.png", 700, 30, 30)
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
+		#only viruses go here
+		#load up character animation
+		#character is loaded up here
+        self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
 
         self.add_dialog("Look at that, it's the platelets!")
         self.show_picture("images/platelet.png", -50, 0, 30)
@@ -60,4 +57,4 @@ class Scene_Platelet(Scene_Base):
         if self.get_value("pathogen") != 3:
             self.goto_scene(Scene_Bacteria)
         else:
-            self.add_dialog("Todo: bacteria character path")
+            self.goto_scene(Scene_Fission)

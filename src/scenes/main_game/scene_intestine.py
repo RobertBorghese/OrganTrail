@@ -6,9 +6,13 @@ from scenes.main_game.scene_final_jelly import Scene_Final_Jelly
 class Scene_Intestine(Scene_Base):
     def setup(self):
         '''
+        #Note: This block is for testing only. Use if you are skipping straight to this scene
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
-        self.set_value("pathogen", 1)
+        self.set_value("pathogen", 1) #change as needed
+        self.set_value("player_frames", ["images/rashCrash_0", "images/rashCrash_1"]) #change as needed
+		#temp value for player animation, will set later in enter scene
+        self.set_value("player_animation", 0)
         '''
         #only jelly belly goes here
         self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
