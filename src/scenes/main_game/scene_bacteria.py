@@ -10,16 +10,20 @@ class Scene_Bacteria(Scene_Base):
         self.set_value("entry", 0)
         self.set_value("pathogen", 1)
         '''
-        #only viruses go here
-        if self.get_value("pathogen") == 1:
-            self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
-        elif self.get_value("pathogen") == 2:
-            self.show_picture("images/rashCrash_0.png", 700, 30, 30)
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
+		#only viruses go here
+		#load up character animation
+		#character is loaded up here
+        self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
         
         self.play_song("audio/testmusic2.mp3")
         self.set_background("images/bloodstream.png")
         #todo: find a better pic of bacteria with a face
         #self.show_picture("images/bacteria.png", 200, 0)
+		#show bacteria offscreen and then send into the scene
+        self.set_value("bacteria", self.show_picture(["images/bacteria_0", "images/bacteria_1"], -500, 20, 30))
+        self.move_picture(self.get_value("bacteria"), GAME_WIDTH/32, 20, 20)
         self.add_dialog("Hey, it's a bacteria cell.")
         self.add_dialog("Despite their reputation, not all of them are out to infect and kill people.")
         self.add_dialog("This one seems like it's pretty harmless. It might even be helpful to the host.")
@@ -47,7 +51,14 @@ class Scene_Bacteria(Scene_Base):
         self.wait_for_button_press()
 
     def infect(self):
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
         self.remove_all_buttons()
+		#animation to attack
+        self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/32, 30, 15)
+        self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/2, 30, 15)
+		#move bacteria off screen
+        self.move_picture(self.get_value("bacteria"), GAME_WIDTH/32, GAME_HEIGHT, 20)
         self.add_dialog("You infected the bacteria cell. Good choice.")
         self.add_dialog("Don't let chances like this pass you by in the hopes that something better might come along.")
         self.add_dialog("Just some life advice from your friend, the text box.")
