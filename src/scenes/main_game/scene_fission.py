@@ -2,7 +2,7 @@
 
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
-from scenes.main_game.scene_anitibodies import Scene_Anitibodies
+from scenes.main_game.scene_antibodies import Scene_Antibodies
 
 class Scene_Fission(Scene_Base):
     def setup(self):
@@ -54,7 +54,7 @@ class Scene_Fission(Scene_Base):
     def right(self):
         self.remove_all_buttons()
         self.add_dialog("The odds were in your favor. Good work!")
-        self.goto_scene(Scene_Anitibodies)
+        self.goto_scene(Scene_Antibodies)
 
     def left(self):
         self.remove_all_buttons()

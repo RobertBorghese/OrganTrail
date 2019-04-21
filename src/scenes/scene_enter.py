@@ -44,7 +44,7 @@ class Scene_Enter(Scene_Base):
 		#print(self.get_value("vaxx"))
 
         #entry point (cut or mouth)
-		if self.generate_random_chance(100): #change to 50 eventually
+		if self.generate_random_chance(0): #change to 50 eventually
 			self.set_value("entry", 0) #cut
 		else:
 			self.set_value("entry", 1) #mouth

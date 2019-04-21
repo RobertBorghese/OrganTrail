@@ -4,7 +4,7 @@ from scenes.scene_game_over import Scene_Game_Over
 from scenes.main_game.scene_stomach import Scene_Stomach
 from scenes.main_game.scene_fever import Scene_Fever
 
-class Scene_Anitibodies(Scene_Base):
+class Scene_Antibodies(Scene_Base):
     def setup(self):
         '''
         #Note: This block is for testing only. Use if you are skipping straight to this scene
@@ -80,7 +80,7 @@ class Scene_Anitibodies(Scene_Base):
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")
-                if self.get_value("pathogen") != 3:
+                if self.get_value("pathogen") == 1:
                     self.goto_scene(Scene_Stomach)
                 else:
                     self.goto_scene(Scene_Fever)
@@ -96,7 +96,7 @@ class Scene_Anitibodies(Scene_Base):
                 self.move_picture(self.get_value("tempPic"), 200, -20, 20)
                 self.move_picture(self.get_value("tempPic"), 200, 600, 30)
                 self.add_dialog("Better get going before more show up...")
-                if self.get_value("pathogen") != 3:
+                if self.get_value("pathogen") == 1:
                     self.goto_scene(Scene_Stomach)
                 else:
                     self.goto_scene(Scene_Fever)
