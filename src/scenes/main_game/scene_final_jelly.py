@@ -12,76 +12,55 @@ class Scene_Final_Jelly(Scene_Base):
         #only jelly belly goes here
         self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
         self.play_song("audio/testmusic2.mp3")
-        #todo: add stomach background
-        #self.set_background("images/bloodstream.png")
+        self.set_background("images/intestines.jpg")
 
-        self.add_dialog("Welcome to the intestines. This is where you'll deliver the final blow!")
-        self.add_dialog("Once food has been broken down enough, it comes here, where it is filtered.")
-        self.add_dialog("Useful parts get absorbed into the bloodstream, and the rest just goes.")
-        self.add_dialog("I'll leave that to your imagination. Just don't join the waste.")
-        self.add_dialog("Now is your chance to multiply even more and disrupt the digestive system!")
-        self.add_dialog("Oh come on! What's a white blood cell doing here?!")
-
-        self.set_background("images/boxing.png")
-        self.play_sound("audio/danger_jingle.mp3") #note: not playing at all
-        self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
-        self.move_picture(self.get_value("tempPic"), 200, 0, 30)
-        self.add_dialog("A White Blood Cell arrived!")
-        
-        self.play_song("audio/combatmusic.mp3")
-        
-        #chance of vaccination
-        if self.get_value("vaxx"):
-            self.add_dialog("The victim is vaccinated, so you only have a 20% chance of beating the cell.")
-            self.add_button(x = 400,
+        self.add_dialog("It's been a few hours, and you've been going to town in the intestines.")
+        self.add_dialog("The victim has definitely noticed by now.")
+        self.add_dialog("So many immune cells are fighting you and your copies.")
+        self.add_dialog("As a result, the victim is feeling lots of pain. Great work!")
+        #cell appears
+        self.add_dialog("Oh, but that means the victim will eat some medicine. That's not good.")
+        self.add_dialog("You can keep running along the intestines, doing as much damage as possible. But that medicine will eventually catch up.")
+        #cell disappears
+        self.add_dialog("You could also go back to the stomach, maybe recruit some of your copies there...")
+        self.add_button(x = 600,
 						y = 400, 
 						w = 300,
 						h = 40,
-						name = "Attack!",
+						name = "Keep moving",
 						buttonColors = ["#7D7DB4","#64648C","252525"],
-						font = ["Arial", 18, -1, False],
-						action = self.fight)
-        else:
-            self.add_dialog("This victim is unvaccinated, so you have an 80% chance of beating the cell!")
-            self.add_button(x = 400,
+						font = ["Arial", 17, -1, False],
+						action = self.keep_moving)
+        self.add_button(x = 200,
 						y = 400, 
 						w = 300,
 						h = 40,
-						name = "Attack!",
+						name = "Back to the stomach",
 						buttonColors = ["#7D7DB4","#64648C","252525"],
-						font = ["Arial", 18, -1, False],
-						action = self.fight)
-
+						font = ["Arial", 17, -1, False],
+						action = self.back_to_stomach)
         self.wait_for_button_press()
 
-    def fight(self):
-		#bug: fades away to next scene too quickly, we can't see all the text
-        if self.get_value("vaxx"):
-            if self.generate_random_chance(20):
-                self.move_picture(self.get_value("tempPic"), 200, -20, 20)
-                self.move_picture(self.get_value("tempPic"), 200, 600, 30)
-                self.remove_all_buttons()
-                self.add_dialog("Hit! Show 'em who's boss!")
-                self.add_dialog("Better get going before more show up...")
-                #self.goto_scene(Scene_Stomach)
-            else:
-                self.remove_all_buttons()
-                self.add_dialog("Your will was strong, but the blood cell was stronger...")
-                
-                self.goto_scene(Scene_Game_Over)
-        else:
-            if self.generate_random_chance(100): #change to 80 eventually
-                self.remove_all_buttons()
-                self.add_dialog("Hit! Show 'em who's boss!")
-                self.move_picture(self.get_value("tempPic"), 200, -20, 20)
-                self.move_picture(self.get_value("tempPic"), 200, 600, 30)
-                self.add_dialog("Better get going before more show up...")
-                #self.goto_scene(Scene_Stomach)
+    def keep_moving(self):
+        self.remove_all_buttons()
+        self.add_dialog("You decide to keep moving forward.")
+        self.add_dialog("You did a lot more damage, but that medicine came.")
+        self.add_dialog("And it came down hard.")
+        self.add_dialog("This is the end for you. But hey, props for causing such an inconvenience for the victim!")
+        self.goto_scene(Scene_Game_Over)
 
-            else:
-                self.remove_all_buttons()
-                self.add_dialog("Your will was strong, but the blood cell was stronger...")
-                self.goto_scene(Scene_Game_Over)
+
+    def back_to_stomach(self):
+        self.remove_all_buttons()
+        self.set_background("images/stomach_inside.jpg")
+        self.add_dialog("Back to the stomach! Wow, there are a lot of you here.")
+        self.add_dialog("You keep bumping into your copies. Careful, some of your DNA might get mixed up!")
+        self.add_dialog("Wait, what's this? You're...mutating!")
+        self.add_dialog("You've mutated! Look at that! Now you can resist the medicine that's coming down!")
+        self.add_dialog("And now...make more copies of your mutated self! This is perfect!")
+        self.add_dialog("Soon, the victim will start feeling even more pain, and they will go to the doctor's.")
+        self.add_dialog("And that one visit will land them a nice, hefty bill. Isn't that the sweetest victory of all?")
+        #goto scene VICTORY
 
 
     

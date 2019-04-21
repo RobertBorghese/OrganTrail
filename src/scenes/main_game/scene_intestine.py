@@ -5,16 +5,15 @@ from scenes.main_game.scene_final_jelly import Scene_Final_Jelly
 
 class Scene_Intestine(Scene_Base):
     def setup(self):
-        
+        '''
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
         self.set_value("pathogen", 1)
-        
+        '''
         #only jelly belly goes here
         self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
         self.play_song("audio/testmusic2.mp3")
-        #todo: add stomach background
-        #self.set_background("images/bloodstream.png")
+        self.set_background("images/intestines.jpg")
 
         self.add_dialog("Welcome to the intestines. This is where you'll deliver the final blow!")
         self.add_dialog("Once food has been broken down enough, it comes here, where it is filtered.")
@@ -23,8 +22,9 @@ class Scene_Intestine(Scene_Base):
         self.add_dialog("Now is your chance to multiply even more and disrupt the digestive system!")
         self.add_dialog("Oh come on! What's a white blood cell doing here?!")
 
+        #fight
         self.set_background("images/boxing.png")
-        self.play_sound("audio/danger_jingle.mp3") #note: not playing at all
+        self.play_sound("audio/danger_jingle.wav")
         self.set_value("tempPic", self.show_picture("images/wbc.png", -100, 0))
         self.move_picture(self.get_value("tempPic"), 200, 0, 30)
         self.add_dialog("A White Blood Cell arrived!")
@@ -64,7 +64,7 @@ class Scene_Intestine(Scene_Base):
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.add_dialog("Better get going before more show up...")
-                #self.goto_scene(Scene_Stomach)
+                self.goto_scene(Scene_Final_Jelly)
             else:
                 self.remove_all_buttons()
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")
@@ -77,8 +77,7 @@ class Scene_Intestine(Scene_Base):
                 self.move_picture(self.get_value("tempPic"), 200, -20, 20)
                 self.move_picture(self.get_value("tempPic"), 200, 600, 30)
                 self.add_dialog("Better get going before more show up...")
-                #self.goto_scene(Scene_Stomach)
-
+                self.goto_scene(Scene_Final_Jelly)
             else:
                 self.remove_all_buttons()
                 self.add_dialog("Your will was strong, but the blood cell was stronger...")

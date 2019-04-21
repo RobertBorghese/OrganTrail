@@ -14,7 +14,6 @@ class Scene_Edu_Blood(Scene_Base):
 
         GAME_WIDTH = self.window.game_width
         GAME_HEIGHT = self.window.game_height
-        #self.set_background("images/Background1.png") #replace with correct background
         self.play_song("audio/testmusic2.mp3")
 		
 	#set_Value provides global access to character animation
@@ -105,11 +104,11 @@ class Scene_Edu_Blood(Scene_Base):
         else:
             if self.generate_random_chance(80): #change to 80 eventually
                 self.remove_all_buttons()
-                self.add_dialog("Hit! Show 'em who's boss!")
-				
+                
 				#animation to attack
                 self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/32, 30, 15)
                 self.move_picture(self.get_value("player_animation") ,  GAME_WIDTH/2, 30, 15)
+                self.add_dialog("Hit! Show 'em who's boss!")
 				
 				#animation of WBC death
                 self.move_picture(self.get_value("wbc"), GAME_WIDTH/32, -20, 20)

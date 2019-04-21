@@ -13,8 +13,7 @@ class Scene_Stomach(Scene_Base):
         #only jelly belly goes here
         self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
         self.play_song("audio/testmusic2.mp3")
-        #todo: add stomach background
-        #self.set_background("images/bloodstream.png")
+        self.set_background("images/stomach_inside.jpg")
 
         self.add_dialog("You've reached the stomach! This was your destination, but your mission is far from over.")
         self.add_dialog("This is where food goes after its been chewed up.")
