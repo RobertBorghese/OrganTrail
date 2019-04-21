@@ -2,7 +2,6 @@ from scenes.scene_base import Scene_Base
 from scenes.scene_test import Scene_Test
 from scenes.scene_enter import Scene_Enter
 from scenes.scene_select_char import Scene_SelectChar
-from scenes.scene_settings import Scene_Settings
 
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
