@@ -29,8 +29,15 @@ class Scene_Stomach(Scene_Base):
         self.add_dialog("Don't worry, you're too small to be affected. Just keep moving.")
         #cell appears
         cell = self.show_picture(["images/cell_0.png", "images/cell_1.png", "images/cell_2.png"], GAME_WIDTH/64 , -10, 20)
-        self.add_dialog("Ah, another vulnerable cell to infect.")
-        self.add_dialog("This one is much bigger, so make more copies of yourself and start wreaking havoc. Go nuts.")
+        if self.get_value("entry") == 1:
+            self.add_dialog("Ah, another vulnerable cell to infect.")
+            self.add_dialog("This one is much bigger, so make more copies of yourself and start wreaking havoc. Go nuts.")
+        else:
+            self.add_dialog("Ah, a cell. Looks nice and peaceful.")
+            self.add_dialog("Let's kill it.")
+            self.add_dialog("Yep, viruses need to infect a host cell to make more copies of itself. That's how they multiply.")
+            self.add_dialog("They inject their DNA into the host, and the DNA uses the host's own protein building mechanism to make more viruses.")
+            self.add_dialog("Of course, this kills the host cell, but that's life.")
 		
 		#animation for multiplying
 		#jelly belly shakes first and then multiplies
