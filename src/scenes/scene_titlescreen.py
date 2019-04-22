@@ -3,6 +3,8 @@ from scenes.scene_test import Scene_Test
 from scenes.scene_enter import Scene_Enter
 from scenes.scene_select_char import Scene_SelectChar
 
+from objects.settings_dialog import Settings_Dialog
+
 class Scene_TitleScreen(Scene_Base):
 	def setup(self):
 		self.set_background("images/Background1.png")
@@ -76,9 +78,14 @@ class Scene_TitleScreen(Scene_Base):
 
 		self.wait_for_button_press()
 		#hide title graphics when button is clicked
-		self.hide_picture(title)
+		#self.hide_picture(title)
+
 
 	def showSettings(self):
+		dialog = Settings_Dialog(self.window)
+		dialog.exec()
+		self.wait_for_button_press()
+		"""
 		#removes buttons from menu
 		self.remove_all_buttons()
 		GAME_WIDTH = self.window.game_width
@@ -126,8 +133,10 @@ class Scene_TitleScreen(Scene_Base):
 		#removes settings title and buttons before going back to menu
 		self.hide_picture(settings)
 		self.remove_all_buttons()
+		"""
 
 	def adjustVol(self):
 		self.showMenu()
+
 	def quit(self):
 		self.close_game()
