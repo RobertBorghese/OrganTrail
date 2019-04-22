@@ -13,8 +13,11 @@ class Scene_Final_Jelly(Scene_Base):
 		#temp value for player animation, will set later in enter scene
         self.set_value("player_animation", 0)
         '''
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
         #only jelly belly goes here
-        self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
+		#move character here
+        self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
         self.play_song("audio/testmusic2.mp3")
         self.set_background("images/intestines.jpg")
 
