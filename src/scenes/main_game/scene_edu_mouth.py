@@ -10,9 +10,9 @@ FONT = ["Arial", 18, -1, False]
 
 class Scene_Edu_Mouth(Scene_Base):
     def setup(self):
-        self.play_song("audio/testmusic2.mp3")
         GAME_WIDTH = self.window.game_width
         GAME_HEIGHT = self.window.game_height
+        self.play_song("audio/testmusic2.mp3")
         self.play_song("audio/testmusic2.mp3")
 		
         self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
@@ -43,9 +43,16 @@ class Scene_Edu_Mouth(Scene_Base):
         self.wait_for_button_press()
 
     def stay(self):
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
         self.remove_all_buttons()
         self.add_dialog("You decide to stay back.")
         self.add_dialog("Wait -- what's that rumbling? It feels like the air pressure just dropped...")
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2, 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2, 30, 20)
+        self.move_picture(self.get_value("player_animation"), -500, -500, 40)
         self.add_dialog("*Ah-CHOOO!* The victim sneezed! And you went flying.")
         self.add_dialog("Well, that invasion ended as soon as it began. The victim walks away, unharmed.")
         self.add_dialog("For now, this is the end for you. But maybe you'll land on another victim to kill...")
