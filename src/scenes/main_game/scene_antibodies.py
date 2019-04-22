@@ -90,7 +90,7 @@ class Scene_Antibodies(Scene_Base):
                 
                 self.goto_scene(Scene_Game_Over)
         else:
-            if self.generate_random_chance(100): #change to 80 eventually
+            if self.generate_random_chance(80): #change to 80 eventually
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
                 self.move_picture(self.get_value("tempPic"), 200, -20, 20)

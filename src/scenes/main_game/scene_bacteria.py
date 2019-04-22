@@ -101,7 +101,7 @@ class Scene_Bacteria(Scene_Base):
         self.remove_all_buttons()
         self.add_dialog("The odds were in your favor. Good work!")
         if self.get_value("pathogen") == 1:
-            self.goto_scene(Scene_Anitibodies)
+            self.goto_scene(Scene_Antibodies)
         else:
             self.goto_scene(Scene_Neuron)
 

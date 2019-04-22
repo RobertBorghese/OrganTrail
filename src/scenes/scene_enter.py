@@ -36,7 +36,7 @@ class Scene_Enter(Scene_Base):
 		self.add_dialog("Hey, it's a human person. That's your victim!")
 
         #chance of vaccination
-		if self.generate_random_chance(0): #change to 50 eventually
+		if self.generate_random_chance(50): #change to 50 eventually
 			self.set_value("vaxx", True)
 		else:
 			self.set_value("vaxx", False)
@@ -44,7 +44,7 @@ class Scene_Enter(Scene_Base):
 		#print(self.get_value("vaxx"))
 
         #entry point (cut or mouth)
-		if self.generate_random_chance(0): #change to 50 eventually
+		if self.generate_random_chance(50): #change to 50 eventually
 			self.set_value("entry", 0) #cut
 		else:
 			self.set_value("entry", 1) #mouth
