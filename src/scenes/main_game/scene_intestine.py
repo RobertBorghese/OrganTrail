@@ -77,7 +77,6 @@ class Scene_Intestine(Scene_Base):
     def fight(self):
         GAME_WIDTH = self.window.game_width
         GAME_HEIGHT = self.window.game_height
-		#bug: fades away to next scene too quickly, we can't see all the text
         if self.get_value("vaxx"):
             if self.generate_random_chance(20):
                 self.remove_all_buttons()
@@ -105,7 +104,7 @@ class Scene_Intestine(Scene_Base):
                 
                 self.goto_scene(Scene_Game_Over)
         else:
-            if self.generate_random_chance(100): #change to 80 eventually
+            if self.generate_random_chance(80): 
                 self.remove_all_buttons()
                 self.add_dialog("Hit! Show 'em who's boss!")
 				#animation to attack
