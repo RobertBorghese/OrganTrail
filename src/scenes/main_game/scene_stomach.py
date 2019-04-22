@@ -14,8 +14,12 @@ class Scene_Stomach(Scene_Base):
 		#temp value for player animation, will set later in enter scene
         self.set_value("player_animation", 0)
         '''
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
         #only jelly belly goes here
-        self.show_picture("images/jellyBelly_0.png", 700, 30, 30)
+		#set_Value provides global access to character animation
+		#move character here
+        self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
         self.play_song("audio/testmusic2.mp3")
         self.set_background("images/stomach_inside.jpg")
 
@@ -24,10 +28,57 @@ class Scene_Stomach(Scene_Base):
         self.add_dialog("Digestive enzymes and acids aid in digestion.")
         self.add_dialog("Don't worry, you're too small to be affected. Just keep moving.")
         #cell appears
+        cell = self.show_picture(["images/cell_0.png", "images/cell_1.png", "images/cell_2.png"], GAME_WIDTH/64 , -10, 20)
         self.add_dialog("Ah, another vulnerable cell to infect.")
         self.add_dialog("This one is much bigger, so make more copies of yourself and start wreaking havoc. Go nuts.")
+		
+		#animation for multiplying
+		#jelly belly shakes first and then multiplies
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10 , 40, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 40, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        copy_1 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2 , 30, 20)
+        copy_2 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
+        #copy_3 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
+        #copy_4 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
+        self.move_picture(copy_1, GAME_WIDTH/2 - 100, -200, 30)
+        self.move_picture(copy_2, GAME_WIDTH/2 - 100, 300, 30)
+        #self.move_picture(copy_3, GAME_WIDTH/2 + 150, -200, 30)
+        #self.move_picture(copy_4, GAME_WIDTH/2 + 150, 300, 30)
+		
+		#cell shaking
+        self.move_picture(cell, GAME_WIDTH/64 + 30 , -10, 20)
+        self.move_picture(cell, GAME_WIDTH/64 , -30, 20)
+        self.move_picture(cell, GAME_WIDTH/64 + 30, -10, 20)
+        self.move_picture(cell, GAME_WIDTH/64, -30, 20)
+		
         #cell disappears
         self.add_dialog("Wow, there are a lot of you now. Enough for the victim to notice, I'd say.")
+		
+		#cell gets attacked and shakes each time
+        self.move_picture(copy_1, GAME_WIDTH/32, 30, 20)
+        self.move_picture(copy_1, GAME_WIDTH/2 - 100, -200, 20)
+        self.move_picture(cell, GAME_WIDTH/64 + 50 , -10, 10)
+        self.move_picture(cell, GAME_WIDTH/64 , -50, 10)
+        self.move_picture(cell, GAME_WIDTH/64 + 50 , -10, 10)
+        self.move_picture(cell, GAME_WIDTH/64, -50, 10)
+		
+        self.move_picture(copy_2, GAME_WIDTH/32, 30, 20)
+        self.move_picture(copy_2, GAME_WIDTH/2 - 100, 300, 30)
+        self.move_picture(cell, GAME_WIDTH/64 + 50 , -10, 10)
+        self.move_picture(cell, GAME_WIDTH/64 , -50, 10)
+        self.move_picture(cell, GAME_WIDTH/64 + 50 , -10, 10)
+        self.move_picture(cell, GAME_WIDTH/64, -50, 10)
+
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/32 , 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        self.move_picture(cell, GAME_WIDTH/64 + 50 , -10, 10)
+        self.move_picture(cell, GAME_WIDTH/64 , -50, 10)
+        self.move_picture(cell, GAME_WIDTH/64 + 50 , -10, 10)
+        self.move_picture(cell, GAME_WIDTH/64, -50, 10)
+
+        self.move_picture(cell, GAME_WIDTH/64 + 10 , 1000, 20)
         self.add_dialog("You can stick around if you want. Try and do some more damage here. Or, you can keep going towards the intestines, where you'll really shine.")
         self.add_button(x = 600,
 						y = 400, 
