@@ -16,8 +16,8 @@ class Scene_Edu_Blood(Scene_Base):
         GAME_HEIGHT = self.window.game_height
         self.play_song("audio/testmusic2.mp3")
 		
-	#set_Value provides global access to character animation
-	#move character here
+		#set_Value provides global access to character animation
+		#move character here
         self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
 
         self.add_dialog("The victim got a cut on their knee from a...football injury. Yes.")
