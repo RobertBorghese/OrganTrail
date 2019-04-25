@@ -73,8 +73,9 @@ class Scene_Final_Jelly(Scene_Base):
         self.add_dialog("Wait, what's this? You're...mutating!")
         self.add_dialog("You've mutated! Look at that! Now you can resist the medicine that's coming down!")
         self.add_dialog("And now...make more copies of your mutated self! This is perfect!")
-        self.add_dialog("Soon, the victim will start feeling even more pain, and they will go to the doctor's.")
-        self.add_dialog("And that one visit will land them a nice, hefty bill. Isn't that the sweetest victory of all?")
+        self.add_dialog("Soon, the victim will start feeling even more pain.")
+        self.add_dialog("And they will probably die of...dare I say...")
+        self.add_dialog("DYSENTERY!!")
         self.add_dialog("GOTO: VICTORY!")
 
 
