@@ -33,8 +33,8 @@ class Scene_Intestine(Scene_Base):
         self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
         self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 40, 20)
         self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
-        copy_1 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2 , 30, 20)
-        copy_2 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
+        copy_1 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 , 30, 20)
+        copy_2 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
         self.move_picture(copy_1, GAME_WIDTH/2 - 100, -200, 30)
         self.move_picture(copy_2, GAME_WIDTH/2 - 100, 300, 30)
 
