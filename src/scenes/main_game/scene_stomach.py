@@ -28,7 +28,7 @@ class Scene_Stomach(Scene_Base):
         self.add_dialog("Digestive enzymes and acids aid in digestion.")
         self.add_dialog("Don't worry, you're too small to be affected. Just keep moving.")
         #cell appears
-        cell = self.show_picture(["images/cell_0.png", "images/cell_1.png", "images/cell_2.png"], GAME_WIDTH/64 , -10, 20)
+        cell = self.show_picture(["images/cell_0.png", "images/cell_1.png", "images/cell_2.png"], GAME_WIDTH/64 , -10, 100)
         if self.get_value("entry") == 1:
             self.add_dialog("Ah, another vulnerable cell to infect.")
             self.add_dialog("This one is much bigger, so make more copies of yourself and start wreaking havoc. Go nuts.")
@@ -45,10 +45,10 @@ class Scene_Stomach(Scene_Base):
         self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
         self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 40, 20)
         self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
-        copy_1 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2 , 30, 20)
-        copy_2 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
-        #copy_3 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
-        #copy_4 = self.show_picture(["images/jellyBelly_0.png", "images/jellyBelly_1.png"], GAME_WIDTH/2, 30, 20)
+        copy_1 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 , 30, 20)
+        copy_2 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        #copy_3 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        #copy_4 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
         self.move_picture(copy_1, GAME_WIDTH/2 - 100, -200, 30)
         self.move_picture(copy_2, GAME_WIDTH/2 - 100, 300, 30)
         #self.move_picture(copy_3, GAME_WIDTH/2 + 150, -200, 30)
