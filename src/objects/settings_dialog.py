@@ -1,5 +1,6 @@
-from PyQt5.QtCore import Qt, QUrl
-from PyQt5.QtWidgets import QApplication, QDialog, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QVBoxLayout, QSlider, QLabel, QGroupBox
+from PyQt5.QtCore import Qt, QUrl, QSize
+from PyQt5.QtWidgets import QApplication, QDialog, QGraphicsView, QGraphicsScene, QGraphicsRectItem, QVBoxLayout, QSlider, QLabel, QGroupBox, QCheckBox, QFrame, QSpacerItem, QWidget
+from PyQt5.QtGui import QResizeEvent
 
 from audio.audio_player import AudioPlayer
 
@@ -31,30 +32,59 @@ class Settings_Dialog(QDialog):
 
 		layout = QVBoxLayout(self.group)
 		layout.setContentsMargins(12, 12, 12, 12)
+		layout.setSpacing(12);
 		self.group.setLayout(layout)
 
+		self.fullscreen = QCheckBox("Use Fullscreen", self)
+		self.fullscreen.setChecked(self.parentWidget().windowState() == (Qt.WindowFullScreen))
+		layout.addWidget(self.fullscreen)
+
+		line = QFrame(self);
+		line.setFrameShape(QFrame.HLine);
+		line.setFrameShadow(QFrame.Sunken);
+		layout.addWidget(line)
+
+		temp = QWidget(self.group)
+		layout.addWidget(temp)
+		slider_layout1 = QVBoxLayout(temp)
 		self.label = QLabel("Music Volume", self)
-		layout.addWidget(self.label)
+		slider_layout1.addWidget(self.label)
 
 		self.slider = QSlider(self)
 		self.slider.setMouseTracking(True)
 		self.slider.valueChanged.connect(self.on_value_music_changed)
 		self.slider.setOrientation(Qt.Horizontal)
 		self.slider.setValue(AudioPlayer.get_music_volume())
-		layout.addWidget(self.slider)
+		slider_layout1.addWidget(self.slider)
 
+		line2 = QFrame(self);
+		line2.setFrameShape(QFrame.HLine);
+		line2.setFrameShadow(QFrame.Sunken);
+		layout.addWidget(line2)
+
+		temp2 = QWidget(self.group)
+		layout.addWidget(temp2)
+		slider_layout2 = QVBoxLayout(temp2)
 		self.se_label = QLabel("Sound Effect Volume", self)
-		layout.addWidget(self.se_label)
+		slider_layout2.addWidget(self.se_label)
 
 		self.se_slider = QSlider(self)
 		self.se_slider.setMouseTracking(True)
 		self.se_slider.valueChanged.connect(self.on_se_value_changed)
 		self.se_slider.setOrientation(Qt.Horizontal)
 		self.se_slider.setValue(AudioPlayer.get_se_volume())
-		layout.addWidget(self.se_slider)
+		slider_layout2.addWidget(self.se_slider)
 
 	def on_value_music_changed(self, val):
 		AudioPlayer.set_music_volume(val)
 
 	def on_se_value_changed(self, val):
 		AudioPlayer.set_se_volume(val)
+
+	def closeEvent(self, event):
+		if self.fullscreen.isChecked():
+			self.parentWidget().setWindowState(Qt.WindowFullScreen)
+		else:
+			self.parentWidget().setWindowState(Qt.WindowNoState)
+		self.parentWidget().resizeEvent(QResizeEvent(self.parentWidget().size(), QSize(0, 0)))
+		event.accept()

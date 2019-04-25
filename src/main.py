@@ -30,11 +30,11 @@ class MyWindow(QWidget):
 
 	def get_flags(self):
 		return (Qt.Dialog 
-				| Qt.CustomizeWindowHint 
-				| Qt.MSWindowsFixedSizeDialogHint
+				| Qt.CustomizeWindowHint
 				| Qt.WindowSystemMenuHint 
 				| Qt.WindowCloseButtonHint 
 				| Qt.WindowTitleHint
+				| Qt.WindowMaximizeButtonHint
 				| Qt.WindowMinimizeButtonHint)
 
 	def setup_window(self):
@@ -60,12 +60,15 @@ class MyWindow(QWidget):
 	def close_game(self):
 		self.close()
 
-	def resizeEvent(self, event):
-		pass
-
 	def timerEvent(self, event):
-		if self.view is not None and self.view.scene() is not None:
+		if self.view.scene() is not None:
 			self.view.scene().update()
+
+	def resizeEvent(self, event):
+		self.view.resetTransform()
+		scale_width = event.size().width() / RESOLUTION_WIDTH
+		scale_height = event.size().height() / RESOLUTION_HEIGHT
+		self.view.scale(scale_width, scale_height)
 
 def main():
 	app = QApplication(sys.argv)

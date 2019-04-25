@@ -221,7 +221,7 @@ class Scene_Base(QGraphicsScene):
 			self.create_dialog_box()
 		else:
 			self.current_dialog_text = QGraphicsTextItem()
-			self.current_dialog_text.setZValue(1)
+			self.current_dialog_text.setZValue(20)
 			self.current_dialog_text.setDefaultTextColor(QColor(255, 255, 255))
 
 			temp_font = self.current_dialog_text.font()
@@ -241,6 +241,7 @@ class Scene_Base(QGraphicsScene):
 		self.dialog_box.setBrush(QColor(0, 0, 0))
 		self.dialog_box.setX(10)
 		self.dialog_box.setY(self.height() - self.dialog_box.boundingRect().height() - 10)
+		self.dialog_box.setZValue(15);
 		self.dialog_box.setOpacity(0)
 		self.addItem(self.dialog_box)
 
@@ -263,7 +264,7 @@ class Scene_Base(QGraphicsScene):
 			self.background = None
 
 		self.background = QGraphicsPixmapItem(QPixmap(data[1]).scaled(self.window.game_width, self.window.game_height))
-		self.background.setZValue(-1)
+		self.background.setZValue(-10)
 		self.addItem(self.background)
 		self.call_next_action()
 
@@ -323,6 +324,7 @@ class Scene_Base(QGraphicsScene):
 			image = QGraphicsPixmapItem(QPixmap(data[2]))
 		image.setX(data[3])
 		image.setY(data[4])
+		image.setZValue(0)
 		self.addItem(image)
 		self.images[data[1]] = image
 		self.call_next_action()
