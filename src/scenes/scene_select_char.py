@@ -4,6 +4,7 @@
 import random
 from scenes.scene_base import Scene_Base
 from scenes.scene_enter import Scene_Enter
+import scenes.scene_titlescreen 
 
 class Scene_SelectChar(Scene_Base):
     def setup(self):
@@ -39,6 +40,14 @@ class Scene_SelectChar(Scene_Base):
 					buttonColors = ["#7D7DB4","#64648C","252525"],
 					font = ["Arial", 18, -1, False],
 					action = self.blaze)
+        self.add_button(x = 60,
+					y = 40, 
+					w = 150,
+					h = 30,
+					name = "Back to Main",
+					buttonColors = ["#7D7DB4","#64648C","252525"],
+					font = ["Arial", 14, -1, False],
+					action = self.back)
 
     #set_Value provides global access to character animation
     def jelly(self):
@@ -61,3 +70,6 @@ class Scene_SelectChar(Scene_Base):
 		#temp value for player animation, will set later in enter scene
         self.set_value("player_animation", 0)
         self.goto_scene(Scene_Enter)
+    
+    def back(self):
+        self.goto_scene(scenes.scene_titlescreen.Scene_TitleScreen)
