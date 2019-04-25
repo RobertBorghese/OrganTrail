@@ -29,7 +29,7 @@ class Scene_Stomach(Scene_Base):
         self.add_dialog("Don't worry, you're too small to be affected. Just keep moving.")
         #cell appears
         cell = self.show_picture(["images/cell_0.png", "images/cell_1.png", "images/cell_2.png"], GAME_WIDTH/64 , -10, 20)
-        if self.get_value("entry") == 1:
+        if self.get_value("entry") == 0:
             self.add_dialog("Ah, another vulnerable cell to infect.")
             self.add_dialog("This one is much bigger, so make more copies of yourself and start wreaking havoc. Go nuts.")
         else:

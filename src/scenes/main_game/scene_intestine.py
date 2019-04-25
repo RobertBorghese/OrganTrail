@@ -44,6 +44,8 @@ class Scene_Intestine(Scene_Base):
         self.add_dialog("Oh come on! What's a white blood cell doing here?!")
 
         #fight
+        self.hide_picture(copy_1)
+        self.hide_picture(copy_2)
         self.set_background("images/boxing.png")
         self.play_sound("audio/danger_jingle.wav")
         self.add_dialog("A White Blood Cell arrived!")
