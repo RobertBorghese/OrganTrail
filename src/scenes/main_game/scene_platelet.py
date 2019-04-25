@@ -21,7 +21,7 @@ class Scene_Platelet(Scene_Base):
         self.show_picture("images/platelet.png", -50, 0, 30)
         self.add_dialog("They always gather at a damaged blood vessel to fix it.")
         self.add_dialog("They produce a substance called fibrin, which patches up the leak.")
-        self.add_dialog("Blood cells get caught in the fibrin and eventually plug the hole completely.")
+        self.add_dialog("Blood cells (and sometimes even pathogens) get caught in the fibrin and eventually plug the hole completely.")
         self.add_dialog("Yep, the body uses its own blood cells to repair damage.")
         self.add_dialog("Pretty oppressive, if you ask me.")
         self.add_dialog("But what do I know, I'm just a text box.")
