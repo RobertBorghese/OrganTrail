@@ -67,8 +67,34 @@ class Scene_Bacteria(Scene_Base):
         self.add_dialog("You infected the bacteria cell. Good choice.")
         self.add_dialog("Don't let chances like this pass you by in the hopes that something better might come along.")
         self.add_dialog("Just some life advice from your friend, the text box.")
+		
+		#animation for multiplying
+		#jelly belly shakes first and then multiplies
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10 , 40, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 40, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        copy_1 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 , 30, 20)
+        copy_2 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_3 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_4 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_5 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_6 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        self.move_picture(copy_1, GAME_WIDTH/2 - 100, -200, 30)
+        self.move_picture(copy_2, GAME_WIDTH/2 - 200, 300, 30)
+        self.move_picture(copy_3,  100, -100, 30)
+        self.move_picture(copy_4,  50, 200, 30)
+        self.move_picture(copy_5,  GAME_WIDTH/2 - 300, 30, 30)
+        self.move_picture(copy_6,  -200, 30, 30)
+		
         self.add_dialog("Now there are over 100 of you! They're going in every direction. We'll follow one of you the rest of the way")
         self.set_background("images/crossroad.jpg")
+        self.hide_picture(copy_1);
+        self.hide_picture(copy_2);
+        self.hide_picture(copy_3);
+        self.hide_picture(copy_4);
+        self.hide_picture(copy_5);
+        self.hide_picture(copy_6);
         self.add_dialog("Ah, the proverbial crossroads. One path will take you forward, while the other...")
         self.add_dialog("Sometimes there's a reason the road is less traveled.")
         self.add_button(x = 600,

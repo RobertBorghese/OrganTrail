@@ -5,7 +5,7 @@ from scenes.main_game.scene_final_blaze import Scene_Final_Blaze
 
 class Scene_Fever(Scene_Base):
     def setup(self):
-        
+        '''
         #Note: This block is for testing only. Use if you are skipping straight to this scene
         self.set_value("vaxx", False)
         self.set_value("entry", 0)
@@ -13,7 +13,7 @@ class Scene_Fever(Scene_Base):
         self.set_value("player_frames", ["images/blazeDaze_0", "images/blazeDaze_1"]) #change as needed
 		#temp value for player animation, will set later in enter scene
         self.set_value("player_animation", 0)
-        
+        '''
         GAME_WIDTH = self.window.game_width
         GAME_HEIGHT = self.window.game_height
 		#load up character animation

@@ -26,11 +26,35 @@ class Scene_Fission(Scene_Base):
         self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
         self.add_dialog("Now, you're in the perfect environment. Nothing is really bothering you yet.")
         self.add_dialog("This is the perfect time for you to start replicating.")
+		#animation for multiplying
+		#blaze daze shakes first and then multiplies
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10 , 40, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 + 10, 40, 20)
+        self.move_picture(self.get_value("player_animation"), GAME_WIDTH/2 , 30, 20)
+        copy_1 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 , 30, 20)
+        copy_2 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_3 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_4 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_5 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        copy_6 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20)
+        self.move_picture(copy_1, GAME_WIDTH/2 - 100, -200, 30)
+        self.move_picture(copy_2, GAME_WIDTH/2 - 200, 300, 30)
+        self.move_picture(copy_3,  100, -100, 30)
+        self.move_picture(copy_4,  50, 200, 30)
+        self.move_picture(copy_5,  GAME_WIDTH/2 - 300, 30, 30)
+        self.move_picture(copy_6,  -200, 30, 30)
         self.add_dialog("You're a cell, unlike those wannabe virues. You can replicate on your own using binary fission.")
         self.add_dialog("You can grow exponentially this way.")
         self.add_dialog("It's been a few hours, and look at the size of your population! Let's follow one of you.")
 
         self.set_background("images/crossroad.jpg")
+        self.hide_picture(copy_1);
+        self.hide_picture(copy_2);
+        self.hide_picture(copy_3);
+        self.hide_picture(copy_4);
+        self.hide_picture(copy_5);
+        self.hide_picture(copy_6);
         self.add_dialog("Ah, the proverbial crossroads. One path will take you forward, while the other...")
         self.add_dialog("Sometimes there's a reason the road is less traveled.")
         self.add_button(x = 600,
