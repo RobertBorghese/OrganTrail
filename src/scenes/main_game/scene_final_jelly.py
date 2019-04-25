@@ -59,7 +59,15 @@ class Scene_Final_Jelly(Scene_Base):
 
     def back_to_stomach(self):
         self.remove_all_buttons()
+        GAME_WIDTH = self.window.game_width
+        GAME_HEIGHT = self.window.game_height
         self.set_background("images/stomach_inside.jpg")
+        copy_1 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 - 100, -200, 30)
+        copy_2 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 - 200, 300, 30)
+        copy_3 = self.show_picture(self.get_value("player_frames"), 100, -100, 30)
+        copy_4 = self.show_picture(self.get_value("player_frames"), 50, 200, 30)
+        copy_5 = self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2 - 300, 30, 30)
+        copy_6 = self.show_picture(self.get_value("player_frames"), -200, 30, 30)
         self.add_dialog("Back to the stomach! Wow, there are a lot of you here.")
         self.add_dialog("You keep bumping into your copies. Careful, some of your DNA might get mixed up!")
         self.add_dialog("Wait, what's this? You're...mutating!")
