@@ -1,6 +1,7 @@
 #Shash
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
+from scenes.scene_victory import Scene_Victory
 
 class Scene_Final_Jelly(Scene_Base):
     def setup(self):
@@ -76,7 +77,7 @@ class Scene_Final_Jelly(Scene_Base):
         self.add_dialog("Soon, the victim will start feeling even more pain.")
         self.add_dialog("And they will probably die of...dare I say...")
         self.add_dialog("DYSENTERY!!")
-        self.add_dialog("GOTO: VICTORY!")
+        self.goto_scene(Scene_Victory)
 
 
     

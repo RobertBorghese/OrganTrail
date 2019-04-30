@@ -1,6 +1,7 @@
 #Shash
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
+from scenes.scene_victory import Scene_Victory
 
 class Scene_Final_Rash(Scene_Base):
     def setup(self):
@@ -21,8 +22,8 @@ class Scene_Final_Rash(Scene_Base):
         self.set_value("player_animation", self.show_picture(self.get_value("player_frames"), GAME_WIDTH/2, 30, 20))
         
         self.play_song("audio/testmusic2.mp3")
-        #Todo: show epidermis as the background
 
+        self.set_background("images/neurons.jpg")
         self.add_dialog("You've been doing some work.")
         self.add_dialog("Traveling up and down the axons of these neurons.")
         self.add_dialog("You've multiplied a whole bunch, too.")
@@ -54,7 +55,7 @@ class Scene_Final_Rash(Scene_Base):
         self.add_dialog("And now...you strike! Rashes and sores are breaking out everywhere!")
         self.add_dialog("So much so that no matter how much skin treatment the victim tries, there are always more of you to attack.")
         self.add_dialog("You've successfully infected the victim!")
-        self.add_dialog("GOTO: Victory!")
+        self.goto_scene(Scene_Victory)
 		
 
 

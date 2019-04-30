@@ -1,6 +1,7 @@
 #Shash
 from scenes.scene_base import Scene_Base
 from scenes.scene_game_over import Scene_Game_Over
+from scenes.scene_victory import Scene_Victory
 
 class Scene_Final_Blaze(Scene_Base):
     def setup(self):
@@ -55,7 +56,7 @@ class Scene_Final_Blaze(Scene_Base):
         self.add_dialog("Now you can replicate and pass on your mutation. And with the exponential growth that follows...")
         self.add_dialog("The medicine can't kill you! The fever spikes back up...101...102...104...")
         self.add_dialog("The fever is too high to control. You did it!")
-        self.add_dialog("GOTO: Victory!")
+        self.goto_scene(Scene_Victory)
 		
 
 

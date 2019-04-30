@@ -1,7 +1,7 @@
+#Jacob
 from scenes.scene_base import Scene_Base
 import scenes.scene_titlescreen 
 
-#Just a copy of Game Over right now, needs to be redone
 class Scene_Victory(Scene_Base):
 	def setup(self):
 		GAME_WIDTH = self.window.game_width
@@ -10,7 +10,7 @@ class Scene_Victory(Scene_Base):
 		#self.set_value("pathogen", 2)
 
 		self.set_background("images/Background2.jpg")
-		self.play_song("audio/gameover.mp3")
+		self.play_song("audio/victory.mp3")
 		#self.show_text(GAME_WIDTH / 4, GAME_HEIGHT / 20, GAME_WIDTH / 2, "Game Over!", 50)
 
 		if self.get_value("pathogen") == 1:
@@ -20,10 +20,10 @@ class Scene_Victory(Scene_Base):
 		else:
 			self.show_picture(["images/blazeDaze_0.png", "images/blazeDaze_1.png"], GAME_WIDTH / 4, 30, 30)
 			
-		game = self.show_picture(["images/gameOver_GAME_0", "images/gameOver_GAME_1"], GAME_WIDTH / 32 + 25, 5, 20)
-		over = self.show_picture(["images/gameOver_OVER_0", "images/gameOver_OVER_1"], GAME_WIDTH / 32 + 525, 5, 20)
+	#	game = self.show_picture(["images/gameOver_GAME_0", "images/gameOver_GAME_1"], GAME_WIDTH / 32 + 25, 5, 20)
+	#	over = self.show_picture(["images/gameOver_OVER_0", "images/gameOver_OVER_1"], GAME_WIDTH / 32 + 525, 5, 20)
 
-		self.add_dialog("Not all pathogens can succeed. Oh well, better luck next time.")
+		self.add_dialog("Congratulations! You've completed your mission and successfully infected the host!")
 		self.add_dialog("Thanks for playing!")
 		
 		self.add_button(x = 200,
